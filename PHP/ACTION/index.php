@@ -59,11 +59,13 @@ function copyFile($src, $dst) {
 }
 
 //
-// Returns whether the user is connected or not
+// Indicates whether the user is connected or not
 //
-public static function isConnected() {
+function isConnected() {
 	return isset($_SESSION['login']);
 }
+
+require_once('./crypto.php');
 
 // SERVICE
 $jsonService = "Secloud"; class Secloud {
@@ -123,8 +125,8 @@ $jsonService = "Secloud"; class Secloud {
 		if(!isConnected()) { cThrow(ERR_RIGHTS); }
 	
 		// initialize data
-		$result = array();
-		$dir = opendir(USERS_FOLDER);
+		$result = array(); $dirpath=USERS_FOLDER;
+		$dir = opendir($dirpath);
 		
 		// walk the USERS folder
 		while (($file = readdir($dir)) !== false) {
@@ -169,8 +171,8 @@ $jsonService = "Secloud"; class Secloud {
 		
 		// craft the user info
 		return array(
-			"firstName"	=> file_get_contents(USERS_FOLDERS.$login.'/firstName.txt'),
-			"lastName"	=> file_get_contents(USERS_FOLDERS.$login.'/lastName.txt')
+			"firstName"	=> file_get_contents(USERS_FOLDERS.$login.'/user/firstName.txt'),
+			"lastName"	=> file_get_contents(USERS_FOLDERS.$login.'/user/lastName.txt')
 		);
 		
 	}
@@ -193,12 +195,12 @@ $jsonService = "Secloud"; class Secloud {
 			
 			// craft the user info
 			$_SESSION['user'] = array(
-				"firstName"	=> file_get_contents(USERS_FOLDERS.$login.'/firstName.txt'),
-				"lastName"	=> file_get_contents(USERS_FOLDERS.$login.'/lastName.txt'),
-				"mail"		=> file_get_contents(USERS_FOLDERS.$login.'/mail.txt'),
-				"phone"		=> file_get_contents(USERS_FOLDERS.$login.'/phone.txt'),
-				"address"	=> file_get_contents(USERS_FOLDERS.$login.'/address.txt'),
-				"idNumber"	=> file_get_contents(USERS_FOLDERS.$login.'/idNumber.txt'),
+				"firstName"	=> file_get_contents(USERS_FOLDERS.$login.'/user/firstName.txt'),
+				"lastName"	=> file_get_contents(USERS_FOLDERS.$login.'/user/lastName.txt'),
+				"mail"		=> file_get_contents(USERS_FOLDERS.$login.'/user/mail.txt'),
+				"phone"		=> file_get_contents(USERS_FOLDERS.$login.'/user/phone.txt'),
+				"address"	=> file_get_contents(USERS_FOLDERS.$login.'/user/address.txt'),
+				"idNumber"	=> file_get_contents(USERS_FOLDERS.$login.'/user/idNumber.txt'),
 			);
 			
 		}
@@ -224,7 +226,7 @@ $jsonService = "Secloud"; class Secloud {
 		
 		// craft the user info
 		foreach($data as $key=>$value) {
-			file_put_contents(USERS_FOLDERS.$login.'/'.pathEncode($key).'.txt',$value);
+			file_put_contents(USERS_FOLDERS.$login.'/user/'.pathEncode($key).'.txt',$value);
 		}
 		
 		// return ok
