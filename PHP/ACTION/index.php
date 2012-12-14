@@ -123,6 +123,41 @@ $jsonService = "Secloud"; class Secloud {
 		// ok
 		return true;
 	}
+	
+	//
+	// Register you on the website
+	//
+	public static function register($data, $pass) {
+		
+		// create a login
+		$login = pathEncode($data['firstName'].' '.$data['idNumber']);
+		
+		// check that the login don't exist already
+		if(is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_ARGS,'Login déjà utilisé'); }
+		
+		// create the user folder
+		mkdir(USERS_FOLDERS.$login);
+		
+		// create a password
+		$uuid=""; $context=null;
+			uuid_create(&$context);
+			uuid_make($context, UUID_MAKE_V4);
+			uuid_export($context, UUID_FMT_STR, &$uuid);
+		$pwd = trim($uuid);
+		file_put_contents('temp-pass.txt',$pwd);
+		
+		// TODO: check data validity
+		//...
+		
+		// now, save data
+		foreach($data as $key=>$value) {
+			file_put_contents(USERS_FOLDERS.$login.'/user/'.pathEncode($key).'.txt',$value);
+		}
+		
+		// return ok
+		return true;
+		
+	}
 
 //
 // USERS

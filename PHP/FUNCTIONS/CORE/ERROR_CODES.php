@@ -27,14 +27,14 @@
 	const ERR_1004 = "La base de donnée n'a pas fourni le résultat attendu";
 	
 	// 11xx : erreurs de connexion
-	const ERR_SHARESPACEDISABLED = 1100; // Toute connexion est bloqu�e, SAUF si on dispose du cookie admin
-	const ERR_1100 = "ShareSpace a été désactivé par un administrateur";
+	const ERR_SITE_DISABLED = 1100; // Toute connexion est bloquée, SAUF si on dispose du cookie admin
+	const ERR_1100 = "Le site a été désactivé par un administrateur";
 	
-	const ERR_RPXCONNEXION = 1101;
-	const ERR_1101 = "Une erreur de connexion au service RPX est survenue. Essayez de vous connecter normalement";
+	const ERR_NETWORK_CONNECTION = 1101;
+	const ERR_1101 = "Une erreur de connexion au service est survenue.";
 	
 	const ERR_LICENCE = 1102;
-	const ERR_1102 = "Veillez accepter la licence avant de continuer";
+	const ERR_1102 = "Veuillez accepter la licence avant de continuer";
 	
 	const ERR_BLOCKED = 1103;
 	const ERR_1103 = "Votre compte a été désactivé par un administrateur";
@@ -42,20 +42,20 @@
 	const ERR_BADINFOS = 1104;
 	const ERR_1104 = "L'identifiant ou le mot de passe est incorrect";
 	
-	const ERR_MESSAGETOREAD = 1105;
+	const ERR_MESSAGE_TO_READ = 1105;
 	const ERR_1105 = "Veuillez lire ce message important avant de continuer";
 	
-	const ERR_HASHKEYNOTFOUND = 1106;
+	const ERR_HASHKEY_NOT_FOUND = 1106;
 	const ERR_1106 = "La clef de hash est inexistante ou a expiré";
 	
-	const ERR_TOOMANYREQUEST = 1107;
+	const ERR_TOO_MANY_REQUESTS = 1107;
 	const ERR_1107 = "Trop de connexions infructueuses ont eu lieu sur cet identifiant OU depuis votre ordinateur. Veuillez réessayer dans 30 minutes.";
 	
-	const ERR_DISCONNECTEDBYADMIN = 1108;
+	const ERR_DISCONNECTED_BY_ADMIN = 1108;
 	const ERR_1108 = "Vous avez été déconnecté ! Ceci survient généralement lorsqu'un professeur ou un administrateur effectue des opérations de paramétrage sur l'un de vos espaces";
 	
-	const ERR_SHARESPACEDOWN = 1111; // Toute connexion est bloquée, méme si on dispose du cookie admin
-	const ERR_1111 = "ShareSpace a été désactivé par un administrateur";
+	const ERR_SITE_DOWN = 1111; // Toute connexion est bloquée, méme si on dispose du cookie admin
+	const ERR_1111 = "Le site a été désactivé par un administrateur";
 	
 	// 20xx : erreurs de sécurité
 	// envoie un mail à webmaster@saint-boni.be (en production)
