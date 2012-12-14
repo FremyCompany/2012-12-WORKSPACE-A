@@ -4,26 +4,66 @@
 			<div class="middle">
 				<div class="content" data-bind="appear : {}">
 					<div class="mainDialog">
-						<!-- ko ifnot : $root.loading -->
-						<div id="signin">
-							<div class="header" data-bind="text: $root.header">Welcome
-								on Secloud, please login</div>
+						<!-- ko if : $root.signin -->
+						<div class="signin aspect">
+							<!-- ko ifnot : $root.loading -->
+							<div class="header">Welcome on Secloud, please login</div>
 							<div class="form">
-								<input type="text" name="email" placeholder="Email"
-									data-bind="value : inputEmail,valueUpdate: 'afterkeydown'"
-									autocomplete="on" /> <input type="password" name="password"
-									placeholder="Password"
-									data-bind=" value : inputPassword,valueUpdate: 'afterkeydown'"
-									autocomplete="off" />
-								<div class="btn_secundary" data-bind="click: connect">Confirm</div>
-								<div class="btn_secundary little" data-bind="">Sign up</div>
-								<div class="btn_secundary little" data-bind=""">Forgot my
-									password</div>
+								<div class="contentform">
+									<input style="width:70%;" type="text" name="email" placeholder="Email"
+										data-bind="value : inputEmail,valueUpdate: 'afterkeydown'"
+										autocomplete="on" /><input style="width:70%;" type="password" name="password"
+										placeholder="Password"
+										data-bind=" value : inputPassword,valueUpdate: 'afterkeydown'"
+										autocomplete="off" />
+								</div>
+								<div
+									style="text-align: center; margin-top: 15px; margin-bottom: 5px;">
+									<div class="btn btn-large btn-inverse btn-login"
+										data-bind="click: connect">Confirm</div>
+									<div class="btn btn-large btn-inverse btn-login"
+										data-bind="click : createAccount">Sign in</div>
+								</div>
 							</div>
+							<!-- /ko -->
+							<!-- ko if : $root.loading -->
+							<img class="loading" src="/TEMPLATE/PICTURES/spinner.gif">
+							<!-- /ko -->
 						</div>
 						<!-- /ko -->
-						<!-- ko if : $root.loading -->
-						<div class="loading">Loading</div>
+						<!-- ko if : $root.signup -->
+						<div class="signup aspect">
+							<!-- ko ifnot : $root.loading -->
+							<div class="header">Create a new accound</div>
+							<div class="form">
+								<div class="contentform">
+									<input style="margin-right:5px;" type="text" name="Firstname" placeholder="Firstname"
+										data-bind="value : inputEmail,valueUpdate: 'afterkeydown'"
+										autocomplete="on" /><input style="margin-left:5px;" type="text" name="Lastname"
+										placeholder="Lastname"
+										data-bind="value : inputEmail,valueUpdate: 'afterkeydown'"
+										autocomplete="on" /><input style="width: 73%" type="text"
+										name="address" placeholder="Address"
+										data-bind="value : inputEmail,valueUpdate: 'afterkeydown'"
+										autocomplete="on" /><input style="width: 73%" type="text"
+										name="phoneNumber" placeholder="Phone number"
+										data-bind="value : inputEmail,valueUpdate: 'afterkeydown'"
+										autocomplete="on" />
+								<div>By confirming, you accept the <span class="myLink">term of conditions</span></div>
+								</div>
+								<div
+									style="text-align: center; margin-top: 15px; margin-bottom: 5px;">
+									<div class="btn btn-large btn-inverse btn-login"
+										data-bind="click: newAccount">Validate</div>
+									<div class="btn btn-large btn-inverse btn-login"
+										data-bind="click : returnSignIn">Sign in</div>
+								</div>
+							</div>
+							<!-- /ko -->
+							<!-- ko if : $root.loading -->
+							<img class="loading" src="/TEMPLATE/PICTURES/spinner.gif">
+							<!-- /ko -->
+						</div>
 						<!-- /ko -->
 					</div>
 				</div>
