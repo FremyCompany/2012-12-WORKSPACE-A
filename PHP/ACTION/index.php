@@ -139,11 +139,11 @@ $jsonService = "Secloud"; class Secloud {
 		mkdir(USERS_FOLDERS.$login);
 		
 		// create a password
-		$uuid=""; $context=null;
+		/*$uuid=""; $context=null;
 			uuid_create(&$context);
 			uuid_make($context, UUID_MAKE_V4);
 			uuid_export($context, UUID_FMT_STR, &$uuid);
-		$pwd = trim($uuid);
+		$pwd = trim($uuid);*/ $pwd="ok";
 		file_put_contents('temp-pass.txt',$pwd);
 		
 		// TODO: check data validity

@@ -13,7 +13,7 @@
 			
 		} else {
 			
-            check_cache(fileLastMod());
+            //check_cache(fileLastMod());
 			echo "window.$jsonService={";
 			
 				$ms = get_class_methods($jsonService);
