@@ -1,4 +1,5 @@
 <?php
+
 // INCLUDES
 const USERS_FOLDER = "../../USERS/";
 
@@ -13,7 +14,8 @@ function pathEncode($str) {
 		str_replace("%","|",			// we can't leave % because it causes issues with URLs
 			rawurlencode($str)			// we don't want special chars
 		)
-	; } 
+	);
+} 
 
 //
 // transform back an aribtrary string from a safe file name
@@ -23,7 +25,7 @@ function pathDecode($str) {
 		str_replace("|","%",			// we revert % encoding
 			str_replace("||",".",$str)	// we revert . encoding
 		)
-	;
+	);
 }
 
 //
@@ -70,8 +72,12 @@ require_once('./crypto.php');
 // SERVICE
 $jsonService = "Secloud"; class Secloud {
 
+//
+// CONNECTION
+//
+
 	//
-	// Returns a list of all the registered users of the service
+	// Connect to the webservice
 	//
 	public static function connect($login, $proof) {
 		
@@ -86,7 +92,7 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($login);
 		
 		// check that the user exists
-		if(!is_dir(USERS_FOLDERS.$login) { cThrow(ERR_NOT_FOUND); }
+		if(!is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_NOT_FOUND); }
 		
 		// check that the proof is valid
 		if(checkProof($login, session_id(), $proof)) {
@@ -106,6 +112,9 @@ $jsonService = "Secloud"; class Secloud {
 		
 	}
 	
+	//
+	// Disconnect from the webservice
+	//
 	public static function disconnect() {
 		
 		// clean
@@ -115,6 +124,9 @@ $jsonService = "Secloud"; class Secloud {
 		return true;
 	}
 
+//
+// USERS
+//
 	
 	//
 	// Returns a list of all the registered users of the service
@@ -167,7 +179,7 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($login);
 		
 		// check that the user exists
-		if(!is_dir(USERS_FOLDERS.$login) { cThrow(ERR_NOT_FOUND); }
+		if(!is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_NOT_FOUND); }
 		
 		// craft the user info
 		return array(
@@ -191,7 +203,7 @@ $jsonService = "Secloud"; class Secloud {
 			$login = $_SESSION['login'];
 			
 			// check that the user exists
-			if(!is_dir(USERS_FOLDERS.$login) { cThrow(ERR_NOT_FOUND); }
+			if(!is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_NOT_FOUND); }
 			
 			// craft the user info
 			$_SESSION['user'] = array(
@@ -222,7 +234,7 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($login);
 		
 		// check that the user exists
-		if(!is_dir(USERS_FOLDERS.$login) { cThrow(ERR_NOT_FOUND); }
+		if(!is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_NOT_FOUND); }
 		
 		// craft the user info
 		foreach($data as $key=>$value) {
@@ -234,6 +246,59 @@ $jsonService = "Secloud"; class Secloud {
 		
 	}
 
+//
+// FILES
+//
+	
+	//
+	// Returns a list of all the files you have access from a user
+	//
+	public static function getFilesFor($login) {
+	
+		// check that you're connected
+		if(!isConnected()) { cThrow(ERR_RIGHTS); }
+						
+		// convert argument into valid data
+		$login = pathEncode($login);
+		
+		// check that the user exists
+		if(!is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_NOT_FOUND); }
+		
+		// check that data exists for you by this user
+		$dirpath=USERS_FOLDERS.$login.'/'.$_SESSION['login'];
+		if(!is_dir($dirpath)) { return $result; }	
+		
+		// initialize data
+		$result = array(); 
+		$dir = opendir($dirpath);
+		
+		// walk the key folder
+		while (($file = readdir($dir)) !== false) {
+		
+			// don't consider UNIX virtual paths
+			if($file=="."||$file=="..") { continue; }
+			
+			// check that we only give access to folders
+			if (is_dir($dirpath.$file)) {
+				
+				// check that the data file still exists
+				if(file_exists($dirpath.'../files/'.$file)) {
+				
+					// append the file to the results
+					$result[] = array(pathDecode($file));
+					
+				}
+				
+			}
+			
+			
+		}
+		
+		return $result;
+
+	}
+
+	
 }
 
 // IF NOT INCLUDE

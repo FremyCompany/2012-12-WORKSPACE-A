@@ -35,7 +35,7 @@ function getPasswordOf($login) {
 //
 // Set the password of an user
 //
-function getPasswordOf($login, $pass) {
+function setPasswordOf($login, $pass) {
 	
 	// login should be safe (we perform back-and-forth conversion to be sure)
 	$login = pathEncode(pathDecode($login));
