@@ -20,9 +20,13 @@ $content="TEMPLATE/HTML/welcome.html";
 <link rel="stylesheet" href="/TEMPLATE/CSS/main.css" />
 </head>
 <body>
-<img id="general-background" alt="" src="TEMPLATE/PICTURES/Smart-Meter-Security.jpeg">	
-	<script src="MODULES/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<img id="general-background" alt=""
+		src="TEMPLATE/PICTURES/Smart-Meter-Security.jpeg">
+	<script src="MODULES/bootstrap/js/bootstrap.min.js"
+		type="text/javascript"></script>
 	<script src="JS/lib.js" type="text/javascript"></script>
+	<script src="PHP/ACTION/" type="text/javascript"></script>
+
 	<div id="whole">
 		<?php 	include($content);?>
 	</div>
