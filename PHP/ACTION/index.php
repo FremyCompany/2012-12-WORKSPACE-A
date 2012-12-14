@@ -297,6 +297,29 @@ $jsonService = "Secloud"; class Secloud {
 		return $result;
 
 	}
+	
+	//
+	// Returns a list of all the files you have access from a user
+	//
+	public static function getPublicKeyOf($login) {
+	
+		// check that you're connected
+		if(!isConnected()) { cThrow(ERR_RIGHTS); }
+						
+		// convert argument into valid data
+		$login = pathEncode($login);
+		
+		// check that the user exists
+		if(!is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_NOT_FOUND); }
+		
+		// check that the file exists
+		if(!file_exists(USERS_FOLDERS.$login.'/public.key')) { cThrow(ERR_NOT_FOUND); }
+		
+		// return its content
+		return base64_encode(file_get_contents(USERS_FOLDERS.$login.'/public.key'));
+		
+	}
+
 
 	
 }
