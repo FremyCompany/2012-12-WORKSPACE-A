@@ -8,7 +8,7 @@
 //
 // Crypt a password before sending it to the file
 //
-function cryptPassword($pwd) {
+function encryptPassword($pwd) {
 	return strrev($pwd);
 }
 
@@ -20,7 +20,7 @@ function decryptPassword($pwd) {
 }
 
 //
-//
+// Get the password of an user
 //
 function getPasswordOf($login) {
 	
@@ -32,7 +32,23 @@ function getPasswordOf($login) {
 	
 }
 
+//
+// Set the password of an user
+//
+function getPasswordOf($login, $pass) {
+	
+	// login should be safe (we perform back-and-forth conversion to be sure)
+	$login = pathEncode(pathDecode($login));
+	
+	// return data
+	return decryptPassword(file_put_contents(USERS_FOLDERS.$login.'/user/firstName.txt',encryptPassword($pass)));
+	
+}
+
+
+//
 // Xor two strings
+//
 function jXOR($a, $b) {
 	$a = array_map('ord', str_split($a));
 	$b = array_map('ord', str_split($b));
@@ -47,7 +63,9 @@ function jXOR($a, $b) {
 	return $c;
 }
 
+//
 // Hashes a string
+//
 function jSHA512($a) {
 	return hash('sha512', $a);
 }
