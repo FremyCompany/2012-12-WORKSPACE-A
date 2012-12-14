@@ -24,7 +24,10 @@ function decryptPassword($pwd) {
 //
 function getPasswordOf($login) {
 	
-	// TODO: login should be safe! check it!
+	// login should be safe (we perform back-and-forth conversion to be sure)
+	$login = pathEncode(pathDecode($login));
+	
+	// return data
 	return decryptPassword(file_get_contents(USERS_FOLDERS.$login.'/user/firstName.txt'));
 	
 }
@@ -55,7 +58,7 @@ function jSHA512($a) {
 function checkProof($login, $sess, $proof) {
 	
 	// load some data
-	$a = "".$pass;
+	$a = "".getPasswordOf($login);
 	$b = "".$sess;
 	
 	// generate a third data
