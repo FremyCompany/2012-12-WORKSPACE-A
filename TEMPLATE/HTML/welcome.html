@@ -40,6 +40,7 @@
 						<!-- /ko -->
 						<!-- ko if : $root.signup -->
 						<div class="signup aspect">
+							<!-- ko ifnot : $root.showSuccess -->
 							<!-- ko ifnot : $root.loading -->
 							<div class="header">Create a new accound</div>
 							<div class="form">
@@ -68,17 +69,17 @@
 										name="nationalNumber" placeholder="National register number"
 										data-bind="value : inputRegister,valueUpdate: 'afterkeydown'"
 										autocomplete="on" />
-									<div>
+									<input style="width: 73%" type="text"
+										name="Passphrase" placeholder="Password sentence"
+										data-bind="value : inputPassphrase,valueUpdate: 'afterkeydown'"
+										autocomplete="on" />
+									<div style="margin-bottom:5px;">
 										By confirming, you accept the <span class="myLink">term
 											of conditions</span>
 									</div>
 								</div>
-								<!-- ko if : $root.showMessage -->
-								<div class="alert alert-error">
-									<button type="button" class="close" data-dismiss="alert">&times;</button>
-									<h4>Warning!</h4>
-									<span data-bind="text: $root.message"></span>
-								</div>
+							<!-- ko if : $root.showMessage -->
+									<span class="label label-important" data-bind="text: $root.message"></span>
 								<!-- /ko -->
 								<div
 									style="text-align: center; margin-top: 15px; margin-bottom: 5px;">
@@ -92,6 +93,15 @@
 							<!-- /ko -->
 							<!-- ko if : $root.loading -->
 							<img class="loading" src="/TEMPLATE/PICTURES/spinner.gif">
+							<!-- /ko -->
+							<!-- /ko -->
+							<!-- ko if : $root.showSuccess -->
+							<div style="margin:20px;position:absolute;top:4%;">
+								<div align="center" class="alert alert-success">
+									<h3 align="center">Registration done !</h3>
+									<p align="center">Thank you for your registration, the post will send you an encrypted USB key with your private and secret key, you have to use your password sentence to decrypt it. Then you can use the password on it to connect and start using this application</p>
+								</div>
+							</div>
 							<!-- /ko -->
 						</div>
 						<!-- /ko -->

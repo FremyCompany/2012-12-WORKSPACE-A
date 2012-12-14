@@ -17,14 +17,16 @@ function LOGIN(specialMessage) {
 	self.inputAddress=ko.observable("");
 	self.inputPhone=ko.observable("");
 	self.inputRegister=ko.observable("");
+	self.inputPassphrase=ko.observable("");
 
+	self.showSuccess=ko.observable(false);
 	self.showMessage=ko.observable(false);
 	self.message=ko.observable("");
 	self.loading=ko.observable(false);
 	self.signin=ko.observable(true);
 	self.signup=ko.observable(false);
 	self.connect=function(){
-		Actions.verifConnection(self.inputEmail(),self.inputPassword(),function(rep){
+		Actions.verifConnection(self.inputEmail(),self.inputPassword(),function(ok,rep){
 			if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
 			self.loading(false);
 			if(rep){
@@ -44,7 +46,27 @@ function LOGIN(specialMessage) {
 		self.showMessage(false);
 	};
 	self.newAccount=function(){
-		alert("create");
+		if(self.inputPassphrase()=="" || self.inputRegister()=="" || self.inputPhone()=="" || self.inputAddress()=="" || self.inputLastName()=="" || self.inputFirstName()=="" || self.inputEmail()=="")
+		{
+			self.showMessage(true);
+			self.message("Fill all information !!");
+		}
+		else{
+			Actions.verifInformation(self.inputPassphrase(),self.inputRegister(),self.inputPhone(),self.inputAddress(),self.inputLastName(),self.inputFirstName(),self.inputEmail(),function(ok,rep){
+				if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
+				self.loading(false);
+				if(!rep){
+					self.showMessage(true);
+					self.message("Some information are wrong !");
+				}
+				else{
+					self.showSuccess(true);
+				}
+			});
+			self.showMessage(false);
+			self.loading(true);
+			alert("create");
+		}
 	};
 	self.returnSignIn=function(){
 		self.showMessage(false);
