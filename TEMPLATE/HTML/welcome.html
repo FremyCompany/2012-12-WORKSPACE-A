@@ -1,0 +1,34 @@
+<div id="welcome">
+	<div class="login">
+		<div class="outer">
+			<div class="background" data-bind="click : close"></div>
+			<div class="middle">
+				<div class="content" data-bind="appear : {}">
+					<div class="mainDialog">
+						<!-- ko ifnot : $root.loading -->
+						<div class="header" data-bind="text: $root.header">Welcome
+							on Secloud, please login</div>
+						<div class="form">
+							<input type="text" name="email" placeholder="Email"
+								data-bind="watermark: dico_email, value : inputEmail,valueUpdate: 'afterkeydown', event: {keyup: checkEmail, blur: checkEmail }"
+								autocomplete="on" /> <input type="password" name="password"
+								placeholder="Password"
+								data-bind="watermark: dico_password, value : inputPassword,valueUpdate: 'afterkeydown', event: {keyup: checkPassword, blur: checkPassword}"
+								autocomplete="off" />
+							<div class="btn_secundary"
+								data-bind="click: connect, text:$root.dico_login">Confirm</div>
+							<div class="btn_secundary little"
+								data-bind="text : dico_noAccount,click : newAccount">Sign up</div>
+							<div class="btn_secundary little"
+								data-bind="text : dico_forgetPassword,click : recupPassword">Forgot my password</div>
+						</div>
+						<!-- /ko -->
+						<!-- ko if : $root.loading -->
+						<div class="loading"></div>
+						<!-- /ko -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
