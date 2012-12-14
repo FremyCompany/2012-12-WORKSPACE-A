@@ -52,7 +52,8 @@ function LOGIN(specialMessage) {
 			self.message("Fill all information !!");
 		}
 		else{
-			Actions.verifInformation(self.inputPassphrase(),self.inputRegister(),self.inputPhone(),self.inputAddress(),self.inputLastName(),self.inputFirstName(),self.inputEmail(),function(ok,rep){
+			var info={ "email" : self.inputEmail(),"firstName" : self.inputFirstName(), "lastName" : self.inputLastName(), "address" : self.inputAddress(),"phone" : self.inputPhone(),"register" : self.inputRegister};
+			Actions.verifInformation(info,self.inputPassphrase(),function(ok,rep){
 				if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
 				self.loading(false);
 				if(!rep){
