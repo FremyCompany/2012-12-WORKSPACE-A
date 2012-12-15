@@ -138,15 +138,14 @@ $jsonService = "Secloud"; class Secloud {
 		// check that the login don't exist already
 		if(is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_ARGS,'Login déjà utilisé'); }
 		
-		// create the user folder
+		// create the user folders
 		mkdir(USERS_FOLDERS.$login);
+        mkdir(USERS_FOLDERS.$login.'/user');
+        mkdir(USERS_FOLDERS.$login.'/files');
+        mkdir(USERS_FOLDERS.$login.'/'.$login);
 		
 		// create a password
-		/*$uuid=""; $context=null;
-			uuid_create(&$context);
-			uuid_make($context, UUID_MAKE_V4);
-			uuid_export($context, UUID_FMT_STR, &$uuid);
-		$pwd = trim($uuid);*/ $pwd="ok";
+		$pwd="ok"; //TODO: use a generator!
 		file_put_contents('temp-pass.txt',$pwd);
 		
 		// TODO: check data validity
@@ -336,8 +335,13 @@ $jsonService = "Secloud"; class Secloud {
 			// check that we only give access to folders
 			if (is_dir($dirpath.$file)) {
 				
-				// check that the data file still exists
-				if(file_exists($dirpath.'../files/'.$file)) {
+				// check that the linked data files still exist (and are signed)
+				if(
+                    file_exists($dirpath.$file.'/.data')
+                    && file_exists($dirpath.$file.'/.hmac')
+                    && file_exists($dirpath.'/../files/'.$file.'/.data')
+                    && file_exists($dirpath.'/../files/'.$file.'/.hmac')
+                ) {
 				
 					// append the file to the results
 					$result[] = array(pathDecode($file));
@@ -374,8 +378,6 @@ $jsonService = "Secloud"; class Secloud {
 		return base64_encode(file_get_contents(USERS_FOLDERS.$login.'/public.key'));
 		
 	}
-
-
 	
 }
 
