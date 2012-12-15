@@ -12,7 +12,11 @@
 							<div class="contentform">
 									<h5 style="color:rgba(255,255,255,0.9);">File to upload (encrypted or it will be deleted)</h5>
 									<input type=file data-bind="event: { change: function(e){ alert('!!') } }" />
-									<h5 style="color:rgba(255,255,255,0.9);">Add the signature</h5>
+									<h5 style="color:rgba(255,255,255,0.9);">The file signature</h5>
+									<input type=file data-bind="event: { change: function(e){ alert('!!') } }" />
+									<h5 style="color:rgba(255,255,255,0.9);">The encryption key, encoded for you</h5>
+									<input type=file data-bind="event: { change: function(e){ alert('!!') } }" />
+									<h5 style="color:rgba(255,255,255,0.9);">The key signature</h5>
 									<input type=file data-bind="event: { change: function(e){ alert('!!') } }" />
 							</div>
 							<!-- ko if : $root.showMessage -->
