@@ -20,7 +20,7 @@
 	$_ENV['ERROR_CODE'] = 0;
 	$_ENV['ERROR_CONTEXT'] = null;
 	//$_SERVER['DEV'] = ($_SERVER['SERVER_NAME'] == "127.0.0.1" || $_SERVER['SERVER_NAME'] == "localhost");
-	$_SERVER['DEV'] = $_SERVER['SERVER_NAME'];
+	$_SERVER['DEV'] = true;
 	// Throw a specified user error
 	function cThrow($errCode, $vars=null, $errMessage="", $level=E_USER_ERROR) {
 		$_ENV['ERROR_CODE'] = $errCode;
@@ -187,7 +187,7 @@
 		
 	});
 
-	require_once($_SERVER['DOCUMENT_ROOT'].'/ROOT/FUNCTIONS/CORE/ERROR_CODES.php');
+	require_once($_SERVER['DOCUMENT_ROOT'].'/PHP/FUNCTIONS/CORE/ERROR_CODES.php');
 	
 	/*
         //TEST
