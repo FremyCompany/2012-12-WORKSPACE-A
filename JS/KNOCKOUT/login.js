@@ -1,17 +1,18 @@
 var model = new LOGIN();
 ko.applyBindings(model, document.getElementById('welcome'));
 
-function LOGIN(specialMessage) {
+function LOGIN() {
 	var self=this;
 	//
 	//Sign in
 	//
-	self.inputEmail=ko.observable("");
+	self.inputLogin=ko.observable("");
 	self.inputPassword=ko.observable("");
-	
+
 	//
 	//Sign up
 	//
+	self.inputEmail=ko.observable("");
 	self.inputFirstName=ko.observable("");
 	self.inputLastName=ko.observable("");
 	self.inputAddress=ko.observable("");
@@ -26,19 +27,26 @@ function LOGIN(specialMessage) {
 	self.signin=ko.observable(true);
 	self.signup=ko.observable(false);
 	self.connect=function(){
-		Actions.verifConnection(self.inputEmail(),self.inputPassword(),function(ok,rep){
-			if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
-			self.loading(false);
-			if(rep){
-				//ok
-				alert("next page");
-			}
-			else{
-				self.showMessage(true);
-				self.message("Wrong email or password");
-			}
-		});
-		self.loading(true);
+		if(self.inputLogin()=="" || self.inputPassword()==""){
+			self.showMessage(true);
+			self.message("Fill all fields to login");
+		}
+		else{
+			window.location.href="?page=home";
+			Actions.verifConnection(self.inputEmail(),self.inputPassword(),function(ok,rep){
+				if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
+				self.loading(false);
+				if(rep){
+					//ok
+					alert("next page");
+				}
+				else{
+					self.showMessage(true);
+					self.message("Wrong email or password");
+				}
+			});
+			self.loading(true);
+		}
 	};
 	self.createAccount=function(){
 		self.signin(false);
@@ -52,7 +60,13 @@ function LOGIN(specialMessage) {
 			self.message("Fill all information !!");
 		}
 		else{
-			var info={ "email" : self.inputEmail(),"firstName" : self.inputFirstName(), "lastName" : self.inputLastName(), "address" : self.inputAddress(),"phone" : self.inputPhone(),"register" : self.inputRegister};
+			var info={ "email" : self.inputEmail(),
+					"firstName" : self.inputFirstName(), 
+					"lastName" : self.inputLastName(),
+					"address" : self.inputAddress(),
+					"phone" : self.inputPhone(),
+					"register" : self.inputRegister
+			};
 			Actions.verifInformation(info,self.inputPassphrase(),function(ok,rep){
 				if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
 				self.loading(false);

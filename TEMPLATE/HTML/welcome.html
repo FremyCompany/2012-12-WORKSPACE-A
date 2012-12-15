@@ -1,5 +1,5 @@
 <div id="welcome">
-	<div class="login">
+	<div class="dialog">
 		<div class="outer">
 			<div class="middle">
 				<div class="content" data-bind="appear : {}">
@@ -10,9 +10,9 @@
 							<div class="header">Welcome on Secloud, please login</div>
 							<div class="form">
 								<div class="contentform">
-									<input style="width: 70%;" type="text" name="email"
-										placeholder="Email"
-										data-bind="value : inputEmail,valueUpdate: 'afterkeydown'"
+									<input style="width: 70%;" type="text" name="Login"
+										placeholder="Login"
+										data-bind="value : inputLogin,valueUpdate: 'afterkeydown'"
 										autocomplete="on" />
 									<input style="width: 70%;"
 										type="password" name="password" placeholder="Password"
@@ -53,23 +53,23 @@
 										type="text" name="Lastname" placeholder="Lastname"
 										data-bind="value : inputLastName,valueUpdate: 'afterkeydown'"
 										autocomplete="on" />
-									<input style="width: 73%" type="text"
+									<input class="inputInfo" type="text"
 										name="Email" placeholder="Email"
 										data-bind="value : inputEmail,valueUpdate: 'afterkeydown'"
 										autocomplete="on" />
-									<input style="width: 73%" type="text"
+									<input class="inputInfo" type="text"
 										name="address" placeholder="Address"
 										data-bind="value : inputAddress,valueUpdate: 'afterkeydown'"
 										autocomplete="on" />
-									<input style="width: 73%" type="text"
+									<input class="inputInfo" type="text"
 										name="phoneNumber" placeholder="Phone number"
 										data-bind="value : inputPhone,valueUpdate: 'afterkeydown'"
 										autocomplete="on" />
-									<input style="width: 73%" type="text"
+									<input class="inputInfo" type="text"
 										name="nationalNumber" placeholder="National register number"
 										data-bind="value : inputRegister,valueUpdate: 'afterkeydown'"
 										autocomplete="on" />
-									<input style="width: 73%" type="text"
+									<input class="inputInfo" type="text"
 										name="Passphrase" placeholder="Password sentence"
 										data-bind="value : inputPassphrase,valueUpdate: 'afterkeydown'"
 										autocomplete="on" />

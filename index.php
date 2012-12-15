@@ -1,5 +1,11 @@
 <?php
-$content="TEMPLATE/HTML/welcome.html";
+if(isset($_GET["page"])){
+	$page=$_GET["page"];
+	$content="TEMPLATE/HTML/".$page.".html";
+}
+else{
+	$content="TEMPLATE/HTML/welcome.html";
+}
 ?>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -20,6 +26,7 @@ $content="TEMPLATE/HTML/welcome.html";
 <link rel="stylesheet" href="/TEMPLATE/CSS/main.css" />
 </head>
 <body>
+
 	<img id="general-background" alt=""
 		src="TEMPLATE/PICTURES/Smart-Meter-Security.jpeg">
 	<script src="MODULES/bootstrap/js/bootstrap.min.js"
@@ -30,5 +37,6 @@ $content="TEMPLATE/HTML/welcome.html";
 	<div id="whole">
 		<?php 	include($content);?>
 	</div>
+	<div style="display:none;" id="addFile"></div>
 </body>
 </html>
