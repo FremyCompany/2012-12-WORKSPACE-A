@@ -161,6 +161,23 @@ $jsonService = "Secloud"; class Secloud {
 		return true;
 		
 	}
+	
+	//
+	// Revoke your access on the website
+	//
+	public static function unregister($pass) {
+		
+		// check that you're connected
+		if(!isConnected()) { cThrow(ERR_RIGHTS); }
+		
+		// create the user folder
+		deleteFile(USERS_FOLDERS.$_SESSION['login']);
+		
+		// return ok
+		return true;
+		
+	}
+
 
 //
 // USERS
