@@ -71,6 +71,31 @@ function jSHA512($a) {
 }
 
 //
+// Check that a folder containing file data and its signature is valid according to a public key
+//
+function checkFileSign($fileDir, $pubkeyFilePath) {
+
+    // fetch data and signature
+    $data = file_get_contents($fileDir.'/.data');
+    $sign = file_get_contents($fileDir.'/.sign');
+    
+    // fetch the public key
+    $fp = fopen($pubkeyFilePath); $cert = fread($fp, 8192); fclose($fp);
+    $pubkeyid = openssl_get_publickey($cert);
+
+    // state whether signature is okay or not
+    $ok = openssl_verify($data, $sign, $pubkeyid);
+
+    // free the key from memory
+    openssl_free_key($pubkeyid);
+
+    // return the result
+    if ($ok !== 1) return FALSE;
+    return TRUE;
+  
+}
+
+//
 // Indicates whether the connection attempt is successful or not
 //
 function checkProof($login, $sess, $proof) {
