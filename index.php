@@ -1,4 +1,7 @@
 <?php
+
+$page_description="Project sécu II";
+
 if(isset($_GET["page"])){
 	$page=$_GET["page"];
 	$content="TEMPLATE/HTML/".$page.".html";
