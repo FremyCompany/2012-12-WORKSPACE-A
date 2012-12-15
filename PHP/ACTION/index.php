@@ -1,6 +1,9 @@
 <?php
 
 // INCLUDES
+require_once($_SERVER['DOCUMENT_ROOT'].'/PHP/FUNCTIONS/core.php');
+
+// constants
 const USERS_FOLDER = "../../USERS/";
 
 // Make sure a path is valid
