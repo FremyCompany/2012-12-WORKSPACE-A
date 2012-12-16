@@ -77,7 +77,7 @@ $jsonService = "Secloud"; class Secloud {
 
 		// check that the login don't exist already
 		if(is_dir(USERS_FOLDER.$login)) {
-			cThrow(ERR_ARGS,'Login déjà utilisé');return false;
+			cThrow(ERR_ARGS,'Login déjà utilisé'); return false;
 		}
 
 		// create the user folders
@@ -88,7 +88,7 @@ $jsonService = "Secloud"; class Secloud {
 		mkdir(USERS_FOLDER.$login.'/'.$login);
 
 		// create a password
-		file_put_contents('temp-pass.txt',$pass);
+		file_put_contents(USERS_FOLDER.$login.'/temp-pass.txt',$pass);
 
 		// TODO: check data validity
 		//...
