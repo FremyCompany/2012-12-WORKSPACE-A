@@ -173,7 +173,7 @@ $jsonService = "Secloud"; class Secloud {
 	// Returns a list of all the registered users of the service (+their info)
 	//
 	public static function getAllUsersInfo() {
-		return array_map('Secloud::getUserInfo', getAllUsers());
+		return array_map('Secloud::getUserInfo', Secloud::getAllUsers());
 	}
 
 	//
