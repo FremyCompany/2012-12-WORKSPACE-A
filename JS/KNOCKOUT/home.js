@@ -3,9 +3,12 @@ var users=new Array();
 for(var i=0;i<20;i++){
 	users[i]={ "firstname" : "Nicolas", "lastname" : "Bernier", "address" : "11, rue Goffart", "url" : "?page=userPage" };
 }
-
-var model = new HOME(users);
+var model = new HOME();
 ko.applyBindings(model, document.getElementById('home'));
+Secloud.getAllUserInfo(function(ok,users){
+	if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }	
+	model.setUser(users);
+});
 $.ajax({
 	url : "/TEMPLATE/HTML/addFile.html",
 	cache : false
@@ -30,7 +33,10 @@ $.ajax({
 
 function HOME() {
 	var self=this;
-	self.users=users;
+	self.users=[];
+	self.setUser(users){
+		self.users=users;
+	}
 	self.addFile=function(){
 		showElem($("#addFile"));
 	};
