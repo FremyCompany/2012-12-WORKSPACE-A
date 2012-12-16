@@ -30,7 +30,7 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($login);
 		
 		// check that the user exists
-		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOT_FOUND); }
+		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_BADINFOS); }
 		
 		// check that the proof is valid
 		if(checkProof($login, session_id(), $proof)) {
@@ -170,7 +170,7 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($login);
 		
 		// check that the user exists
-		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOT_FOUND); }
+		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOTFOUND); }
 		
 		// craft the user info
 		return array(
@@ -194,7 +194,7 @@ $jsonService = "Secloud"; class Secloud {
 			$login = $_SESSION['login'];
 			
 			// check that the user exists
-			if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOT_FOUND); }
+			if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOTFOUND); }
 			
 			// craft the user info
 			$_SESSION['user'] = array(
@@ -226,7 +226,7 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($login);
 		
 		// check that the user exists
-		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOT_FOUND); }
+		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOTFOUND); }
 		
 		// craft the user info
 		foreach($data as $key=>$value) {
@@ -254,7 +254,7 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($login);
 		
 		// check that the user exists
-		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOT_FOUND); }
+		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOTFOUND); }
 		
 		// check that data exists for you by this user
 		$dirpath=USERS_FOLDER.$login.'/'.$_SESSION['login'];
@@ -307,10 +307,10 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($login);
 		
 		// check that the user exists
-		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOT_FOUND); }
+		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOTFOUND); }
 		
 		// check that the file exists
-		if(!file_exists(USERS_FOLDER.$login.'/public.key')) { cThrow(ERR_NOT_FOUND); }
+		if(!file_exists(USERS_FOLDER.$login.'/public.key')) { cThrow(ERR_NOTFOUND); }
 		
 		// return its content
 		return base64_encode(file_get_contents(USERS_FOLDER.$login.'/public.key'));
