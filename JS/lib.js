@@ -780,7 +780,16 @@ KeyboardShortcuts = {
              }
              return str
          },
-         rotr = function (x, n) {
+         rotr = (/Safari/.test(navigator.userAgent) && /Apple Computer/.test(navigator.vendor)) ? 
+		 function (x, n) {
+			var tmp = new Int_64(x.highOrder, x.lowOrder);
+             if (n <= 32) {
+                 return new Int_64((tmp.h >>> n) | (tmp.l << (32 - n)), (tmp.l >>> n) | (tmp.h << (32 - n)))
+             } else {
+                 return new Int_64((tmp.l >>> n) | (tmp.h << (32 - n)), (tmp.h >>> n) | (tmp.l << (32 - n)))
+             }
+         } : 
+		 function (x, n) {
              if (n <= 32) {
                  return new Int_64((x.h >>> n) | (x.l << (32 - n)), (x.l >>> n) | (x.h << (32 - n)))
              } else {
@@ -907,14 +916,30 @@ KeyboardShortcuts = {
 
          }
 
-	
 	window.str2binb=str2binb;
 	window.binb2hex=binb2hex;
 	
     window.SHA512 = function (a) {
         return binb2hex(coreSHA2(str2binb(a).slice(), a.length * charSize, a));
     };
-
+	 
+	window.XOR = function(a,b) {
+		var c = "";
+		for(var i=0;i<a.length;i++) {
+			if(i<b.length) {
+				c += String.fromCharCode(b.charCodeAt(i)^a.charCodeAt(i));
+			} else {
+				c += String.fromCharCode(129^a.charCodeAt(i))
+			}
+		}
+		return c;
+	}
+	
+	window.SHA_ENCODE = function(a) {
+		var b = cookies.getItem('PHPSESSID'); 
+		var c = XOR(a,b);
+		return SHA512(c+SHA512(c+b));
+	}
 }());
 
 //Knockout JavaScript library v2.2.0

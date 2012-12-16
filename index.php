@@ -1,6 +1,7 @@
 <?php
 
-$page_description="Project s�cu II";
+session_start();
+$page_description="Project sécu II";
 
 if(isset($_GET["page"])){
 	$page=$_GET["page"];
@@ -9,9 +10,7 @@ if(isset($_GET["page"])){
 else{
 	$content="TEMPLATE/HTML/welcome.html";
 }
-?>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+?><!doctype html>
 <html xmlns:fb='http://www.facebook.com/2008/fbml'>
 <head>
 

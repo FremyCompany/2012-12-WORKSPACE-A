@@ -4,7 +4,7 @@
 require_once($_SERVER['DOCUMENT_ROOT'].'/PHP/FUNCTIONS/core.php');
 
 // constants
-const USERS_FOLDER = "../../USERS/";
+define('USERS_FOLDER',($_SERVER['DOCUMENT_ROOT']."/USERS/"));
 
 // Make sure a path is valid
 function safeDir($dir) { return str_replace("..","",str_replace("...","",$dir)); }
@@ -85,17 +85,19 @@ $jsonService = "Secloud"; class Secloud {
 	public static function connect($login, $proof) {
 		
 		// if an user is already connected, disconnect first
-		if($login==$_SESSION['login']) {
-			return Secloud::getMyUserInfo();
-		} else {
-			Secloud::disconnect();
+		if(isset($_SESSION['login'])) {
+			if($login==$_SESSION['login']) {
+				return Secloud::getMyUserInfo();
+			} else {
+				Secloud::disconnect();
+			}
 		}
 		
 		// convert argument into valid data
 		$login = pathEncode($login);
 		
 		// check that the user exists
-		if(!is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_NOT_FOUND); }
+		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOT_FOUND); }
 		
 		// check that the proof is valid
 		if(checkProof($login, session_id(), $proof)) {
@@ -136,13 +138,13 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($data['firstName'].' '.$data['idNumber']);
 		
 		// check that the login don't exist already
-		if(is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_ARGS,'Login déjà utilisé'); }
+		if(is_dir(USERS_FOLDER.$login)) { cThrow(ERR_ARGS,'Login déjà utilisé'); }
 		
 		// create the user folders
-		mkdir(USERS_FOLDERS.$login);
-        mkdir(USERS_FOLDERS.$login.'/user');
-        mkdir(USERS_FOLDERS.$login.'/files');
-        mkdir(USERS_FOLDERS.$login.'/'.$login);
+		mkdir(USERS_FOLDER.$login);
+        mkdir(USERS_FOLDER.$login.'/user');
+        mkdir(USERS_FOLDER.$login.'/files');
+        mkdir(USERS_FOLDER.$login.'/'.$login);
 		
 		// create a password
 		$pwd="ok"; //TODO: use a generator!
@@ -153,7 +155,7 @@ $jsonService = "Secloud"; class Secloud {
 		
 		// now, save data
 		foreach($data as $key=>$value) {
-			file_put_contents(USERS_FOLDERS.$login.'/user/'.pathEncode($key).'.txt',$value);
+			file_put_contents(USERS_FOLDER.$login.'/user/'.pathEncode($key).'.txt',$value);
 		}
 		
 		// return ok
@@ -170,7 +172,7 @@ $jsonService = "Secloud"; class Secloud {
 		if(!isConnected()) { cThrow(ERR_RIGHTS); }
 		
 		// create the user folder
-		deleteFile(USERS_FOLDERS.$_SESSION['login']);
+		deleteFile(USERS_FOLDER.$_SESSION['login']);
 		
 		// return ok
 		return true;
@@ -233,12 +235,12 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($login);
 		
 		// check that the user exists
-		if(!is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_NOT_FOUND); }
+		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOT_FOUND); }
 		
 		// craft the user info
 		return array(
-			"firstName"	=> file_get_contents(USERS_FOLDERS.$login.'/user/firstName.txt'),
-			"lastName"	=> file_get_contents(USERS_FOLDERS.$login.'/user/lastName.txt')
+			"firstName"	=> file_get_contents(USERS_FOLDER.$login.'/user/firstName.txt'),
+			"lastName"	=> file_get_contents(USERS_FOLDER.$login.'/user/lastName.txt')
 		);
 		
 	}
@@ -246,7 +248,7 @@ $jsonService = "Secloud"; class Secloud {
 	//
 	// Returns more information about the connected user
 	//
-	private static function getMyUserInfo() {
+	public static function getMyUserInfo() {
 			
 		// check that you're connected
 		if(!isConnected()) { return null; }
@@ -257,16 +259,16 @@ $jsonService = "Secloud"; class Secloud {
 			$login = $_SESSION['login'];
 			
 			// check that the user exists
-			if(!is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_NOT_FOUND); }
+			if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOT_FOUND); }
 			
 			// craft the user info
 			$_SESSION['user'] = array(
-				"firstName"	=> file_get_contents(USERS_FOLDERS.$login.'/user/firstName.txt'),
-				"lastName"	=> file_get_contents(USERS_FOLDERS.$login.'/user/lastName.txt'),
-				"mail"		=> file_get_contents(USERS_FOLDERS.$login.'/user/mail.txt'),
-				"phone"		=> file_get_contents(USERS_FOLDERS.$login.'/user/phone.txt'),
-				"address"	=> file_get_contents(USERS_FOLDERS.$login.'/user/address.txt'),
-				"idNumber"	=> file_get_contents(USERS_FOLDERS.$login.'/user/idNumber.txt'),
+				"firstName"	=> file_get_contents(USERS_FOLDER.$login.'/user/firstName.txt'),
+				"lastName"	=> file_get_contents(USERS_FOLDER.$login.'/user/lastName.txt'),
+				"mail"		=> file_get_contents(USERS_FOLDER.$login.'/user/mail.txt'),
+				"phone"		=> file_get_contents(USERS_FOLDER.$login.'/user/phone.txt'),
+				"address"	=> file_get_contents(USERS_FOLDER.$login.'/user/address.txt'),
+				"idNumber"	=> file_get_contents(USERS_FOLDER.$login.'/user/idNumber.txt'),
 			);
 			
 		}
@@ -288,11 +290,11 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($login);
 		
 		// check that the user exists
-		if(!is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_NOT_FOUND); }
+		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOT_FOUND); }
 		
 		// craft the user info
 		foreach($data as $key=>$value) {
-			file_put_contents(USERS_FOLDERS.$login.'/user/'.pathEncode($key).'.txt',$value);
+			file_put_contents(USERS_FOLDER.$login.'/user/'.pathEncode($key).'.txt',$value);
 		}
 		
 		// return ok
@@ -316,10 +318,10 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($login);
 		
 		// check that the user exists
-		if(!is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_NOT_FOUND); }
+		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOT_FOUND); }
 		
 		// check that data exists for you by this user
-		$dirpath=USERS_FOLDERS.$login.'/'.$_SESSION['login'];
+		$dirpath=USERS_FOLDER.$login.'/'.$_SESSION['login'];
 		if(!is_dir($dirpath)) { return $result; }	
 		
 		// initialize data
@@ -369,13 +371,13 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($login);
 		
 		// check that the user exists
-		if(!is_dir(USERS_FOLDERS.$login)) { cThrow(ERR_NOT_FOUND); }
+		if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOT_FOUND); }
 		
 		// check that the file exists
-		if(!file_exists(USERS_FOLDERS.$login.'/public.key')) { cThrow(ERR_NOT_FOUND); }
+		if(!file_exists(USERS_FOLDER.$login.'/public.key')) { cThrow(ERR_NOT_FOUND); }
 		
 		// return its content
-		return base64_encode(file_get_contents(USERS_FOLDERS.$login.'/public.key'));
+		return base64_encode(file_get_contents(USERS_FOLDER.$login.'/public.key'));
 		
 	}
 	

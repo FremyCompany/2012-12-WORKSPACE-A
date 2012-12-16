@@ -1,5 +1,6 @@
 <?php
-	
+	session_start();
+
 	/* DISABLE: Magic quotes */
     if(get_magic_quotes_gpc() == 1){
         # Définition de la fonction récursive.

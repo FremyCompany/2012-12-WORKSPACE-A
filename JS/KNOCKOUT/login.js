@@ -32,20 +32,18 @@ function LOGIN() {
 			self.message("Fill all fields to login");
 		}
 		else{
-			window.location.href="?page=home";
-			Actions.verifConnection(self.inputEmail(),self.inputPassword(),function(ok,rep){
-				if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
-				self.loading(false);
-				if(rep){
-					//ok
-					alert("next page");
-				}
-				else{
-					self.showMessage(true);
-					self.message("Wrong email or password");
+			
+			// too see the result
+			watchCustomEvent('connectedUserChanged',function(){
+				if(sCredentials) {
+					window.location.href="?page=home";
 				}
 			});
+			
+			// start login
+			sCredentialsManager.login(self.inputEmail(),SHA512(self.inputPassword()))
 			self.loading(true);
+			
 		}
 	};
 	self.createAccount=function(){

@@ -28,7 +28,7 @@ function getPasswordOf($login) {
 	$login = pathEncode(pathDecode($login));
 	
 	// return data
-	return decryptPassword(file_get_contents(USERS_FOLDERS.$login.'/user/firstName.txt'));
+	return decryptPassword(file_get_contents(USERS_FOLDER.$login.'/pass.hash'));
 	
 }
 
@@ -41,7 +41,7 @@ function setPasswordOf($login, $pass) {
 	$login = pathEncode(pathDecode($login));
 	
 	// return data
-	return decryptPassword(file_put_contents(USERS_FOLDERS.$login.'/user/firstName.txt',encryptPassword($pass)));
+	return decryptPassword(file_put_contents(USERS_FOLDER.$login.'/pass.hash',encryptPassword($pass)));
 	
 }
 
