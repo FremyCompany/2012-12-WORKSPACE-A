@@ -1,26 +1,37 @@
-userInfo={
+/*userInfo={
 		"id" : "myId",
 		"Firstname" : "Nicolas",
 		"Lastname" : "Bernier",
-		"Email" : "berniernico@hotmail.com",
+		"mail" : "berniernico@hotmail.com",
 		"Address" : "11, rue Goffart",
 		"Phone" : "0474/023291",
 		"myFiles" : []
-};
-var model = new USERPAGE(userInfo);
-ko.applyBindings(model, document.getElementById('home'));
-
+};*/
+Secloud.getMyUserInfo(function(ok,rep){
+	if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
+	alert(JSON.stringify(rep));
+	var model = new USERPAGE(rep);
+	ko.applyBindings(model, document.getElementById('home'));
+});
 
 function USERPAGE(userInfo) {
 	var self=this;
 	self.userInfo=userInfo;
-
+	self.userInfoObservable={
+			"id" : ko.observable(self.userInfo.id),
+			"Firstname" : ko.observable(self.userInfo.Firstname),
+			"Lastname" : ko.observable(self.userInfo.Lastname),
+			"Email" : ko.observable(self.userInfo.mail),
+			"Address" : ko.observable(self.userInfo.Address),
+			"Phone" : ko.observable(self.userInfo.Phone),
+	};
+	
 	self.userTitle=ko.observable("");
 	self.titleFiles=ko.observable("");
 	self.myPage=ko.observable(false);
 	self.modif=ko.observable(false);
 	self.textButton=ko.observable("Modif");
-	if(self.userInfo.myFiles.length==0)
+	/*if(self.userInfo.myFiles.length==0)
 	{
 		self.isFiles=ko.observable(false);
 	}
@@ -35,7 +46,7 @@ function USERPAGE(userInfo) {
 	else{
 		self.userTitle("Profil of "+userInfo.Firstname);
 		self.titleFiles("Files shared with "+userInfo.Firstname);
-	}
+	}*/
 	self.modifInfo=function(){
 		if(self.modif()==false){
 			self.textButton("Cancel");

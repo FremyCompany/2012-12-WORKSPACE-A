@@ -16,44 +16,48 @@
 		<!-- ko ifnot : $root.modif -->
 		<div class="userInfo">
 			<h2>
-				<span data-bind="text : userInfo.Firstname"></span> <span
-					data-bind="text : userInfo.Lastname"></span>
+				<span data-bind="text : userInfo.firstname"></span> <span
+					data-bind="text : userInfo.lastname"></span>
 			</h2>
 			<div style="font-size: 110%;">
 				<div style="margin-bottom: 10px;">
 					<strong>Address:</strong> <span style="font-style: italic;"
-						data-bind="text : userInfo.Address"></span>
+						data-bind="text : userInfo.address"></span>
 				</div>
 				<div style="margin-bottom: 10px;">
 					<strong>Phone:</strong> <span style="font-style: italic;"
-						data-bind="text : userInfo.Phone"></span>
+						data-bind="text : userInfo.phone"></span>
 				</div>
 				<div>
 					<strong>Email:</strong> <span style="font-style: italic;"
-						data-bind="text : userInfo.Email"></span>
+						data-bind="text : userInfo.mail"></span>
 				</div>
 			</div>
 		</div>
 		<!-- /ko -->
 		<!-- ko if : $root.modif -->
-		<div style="width: 43%; text-align: right; position: relative;">
+		<div style="width: 45%; text-align: right; position: relative;">
 			<input class="modifMyInfo" type="text" name="Firstname"
 				placeholder="Firstname"
-				data-bind="value : userInfo.Firstname,valueUpdate: 'afterkeydown'"
-				autocomplete="on" /> <input class="modifMyInfo" type="text"
-				name="Lastname" placeholder="Lastname"
-				data-bind="value : userInfo.Lastname,valueUpdate: 'afterkeydown'"
-				autocomplete="on" /> <input class="modifMyInfo" type="text"
-				name="Email" placeholder="Email"
-				data-bind="value : userInfo.Email,valueUpdate: 'afterkeydown'"
-				autocomplete="on" /> <input class="modifMyInfo" type="text"
-				name="address" placeholder="Address"
-				data-bind="value : userInfo.Address,valueUpdate: 'afterkeydown'"
-				autocomplete="on" /> <input class="modifMyInfo" type="text"
-				name="phoneNumber" placeholder="Phone number"
-				data-bind="value : userInfo.Phone,valueUpdate: 'afterkeydown'"
+				data-bind="value : userInfoObservable.firstname,valueUpdate: 'afterkeydown'"
 				autocomplete="on" />
-			<div style="position: relative; left: -10px;"
+			<input class="modifMyInfo" type="text"
+				name="Lastname" placeholder="Lastname"
+				data-bind="value : userInfoObservable.lastname,valueUpdate: 'afterkeydown'"
+				autocomplete="on" />
+			<input class="modifMyInfo" type="text"
+				name="Email" placeholder="Email"
+				data-bind="value : userInfoObservable.mail,valueUpdate: 'afterkeydown'"
+				autocomplete="on" />
+			<input class="modifMyInfo" type="text"
+				name="address" placeholder="Address"
+				data-bind="value : userInfoObservable.address,valueUpdate: 'afterkeydown'"
+				autocomplete="on" />
+			<input class="modifMyInfo" type="text"
+				name="phoneNumber" placeholder="Phone number"
+				data-bind="value : userInfoObservable.phone,valueUpdate: 'afterkeydown'"
+				autocomplete="on" />
+			<div style="position: relative; left: -5px;"
 				class="btn btn-large btn-inverse"
 				data-bind="click : $root.saveModif">Save</div>
 			<div class="btn-certificate btn btn-large btn-inverse"
