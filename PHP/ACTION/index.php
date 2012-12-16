@@ -332,7 +332,7 @@ if(realpath($_SERVER["SCRIPT_FILENAME"]) == realpath(__FILE__)) {
 	function updateData(ok, data, errMessage) {
 		try {
 			if(ok) {
-				if(!window.sCredentials || data.login!=window.sCredentials.login) {
+				if((!window.sCredentials) || (!data) || (data.login!=window.sCredentials.login)) {
 					window.sCredentials = data; lastId=null; lastPassword=null;
 					sessionStorage.setItem("sCredentials",JSON.stringify(data));
 					raiseCustomEvent('connectedUserChanged',{});
@@ -398,14 +398,13 @@ if(realpath($_SERVER["SCRIPT_FILENAME"]) == realpath(__FILE__)) {
 	
 	// check that the user has access to this page
 	function checkShowLogin(){
-    	if(window.location.pathname!="/" && (!sCredentials || !sCredentials.login)) {
+    	if((window.location.pathname!="/" || window.location.search!="") && (!sCredentials || !sCredentials.login)) {
         	window.location.href="/";
 		}
     };
 	
     watchCustomEvent('connectedUserChanged',checkShowLogin);
 
-	
     // if cache is empty
     if(!sessionStorage.getItem("sCredentials")) {
 	
