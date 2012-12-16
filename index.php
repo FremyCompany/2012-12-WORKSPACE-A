@@ -40,8 +40,6 @@ else{
 
 	<img id="general-background" alt=""
 		src="TEMPLATE/PICTURES/Smart-Meter-Security.jpeg">
-	<script src="MODULES/bootstrap/js/bootstrap.min.js"
-		type="text/javascript"></script>
 	<script src="JS/lib.js" type="text/javascript"></script>
 	<script src="PHP/ACTION/" type="text/javascript"></script>
 	<script src="JS/functions.js" type="text/javascript"></script>

@@ -57,13 +57,11 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 		Sign.has=true;
 	};
 	this.addKey = function () {
-		alert("add key");
 		addFileListItems(this.files,Key);
 		Key.has=true;
 	};
 	this.addKeySign = function () {
 		addFileListItems(this.files,KeySign);
-		alert("add KeySign")
 		KeySign.has=true;
 	};
 	this.checkHasAll=function(){
