@@ -147,8 +147,7 @@ $jsonService = "Secloud"; class Secloud {
         mkdir(USERS_FOLDER.$login.'/'.$login);
 		
 		// create a password
-		$pwd="ok"; //TODO: use a generator!
-		file_put_contents('temp-pass.txt',$pwd);
+		file_put_contents('temp-pass.txt',$pass);
 		
 		// TODO: check data validity
 		//...

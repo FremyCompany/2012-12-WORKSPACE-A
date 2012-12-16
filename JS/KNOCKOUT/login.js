@@ -50,6 +50,7 @@ function LOGIN() {
 					self.message("Wrong password or login");
 				}
 			});
+			
 			// start login
 			sCredentialsManager.login(self.inputLogin(),SHA512(self.inputPassword()))
 			self.loading(true);

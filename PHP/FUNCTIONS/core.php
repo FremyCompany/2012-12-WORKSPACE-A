@@ -1,5 +1,17 @@
 <?php
-	session_start();
+	
+	if(session_id()=='') { session_start(); }
+	
+	/* DISABLE: Session resurection */
+	if(!isset($_SESSION['SESSID']) || $_SESSION['SESSID']!=session_id()) {
+		if(isset($_COOKIE['PHPSESSID'])) {
+			// client can't choose its session id name
+			session_regenerate_id();
+			$_SESSION['SESSID'] = session_id();
+		} else {
+			$_SESSION['SESSID'] = session_id();
+		}
+	}
 
 	/* DISABLE: Magic quotes */
     if(get_magic_quotes_gpc() == 1){
