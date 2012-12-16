@@ -35,6 +35,7 @@
 	$user 		= isset($_GET['user'])		? $_GET['user']		: cThrow(ERR_ARGS);
 	$file 		= isset($_GET['file'])		? $_GET['file']		: cThrow(ERR_ARGS);
 	
+	// transmit file
 	if($mode=='file') {
 		if($submode=='data') {
 			transmitFile($_SERVER['DOCUMENT_ROOT'].'/USERS/'.pathEncode($user).'/FILES/'.pathEncode($file).'/.data', $file);

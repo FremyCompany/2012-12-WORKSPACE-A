@@ -144,4 +144,7 @@ function USERPAGE() {
 	self.logout=function(){
 		sCredentialsManager.logout();
 	};
+	self.downloadKey=function() {
+		window.open("/PHP/download-key.php?user="+escape(self.userInfo.login));
+	};
 };
