@@ -398,8 +398,8 @@ if(realpath($_SERVER["SCRIPT_FILENAME"]) == realpath(__FILE__)) {
 	
 	// check that the user has access to this page
 	function checkShowLogin(){
-    	if(window.location.pathname!="/" && (!sCredentials || !sCredentials.login)) {
-        	window.location.href="/";
+    	if(window.location.pathname!="/?page=welcome" && (!sCredentials || !sCredentials.login)) {
+        	window.location.href="?page=welcome";
 		}
     };
 	
