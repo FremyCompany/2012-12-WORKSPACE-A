@@ -83,7 +83,8 @@ $jsonService = "Secloud"; class Secloud {
 		// create the user folders
 		mkdir(USERS_FOLDER.$login);
 		mkdir(USERS_FOLDER.$login.'/user');
-		mkdir(USERS_FOLDER.$login.'/files');
+		mkdir(USERS_FOLDER.$login.'/FILES');
+		mkdir(USERS_FOLDER.$login.'/KEYS');
 		mkdir(USERS_FOLDER.$login.'/'.$login);
 
 		// create a password
@@ -269,6 +270,7 @@ $jsonService = "Secloud"; class Secloud {
 	public static function getMyFiles(){
 		return Secloud::getFilesFor($_SESSION["login"]);
 	}
+	
 	//
 	// Returns a list of all the files you have access from a user
 	//
@@ -288,7 +290,7 @@ $jsonService = "Secloud"; class Secloud {
 		}
 		$result = array();
 		// check that data exists for you by this user
-		$dirpath=USERS_FOLDER.$login.'/'.$_SESSION['login'];
+		$dirpath=USERS_FOLDER.$login.'/KEYS/'.$_SESSION['login'];
 		if(!is_dir($dirpath)) {
 			return $result;
 		}
@@ -312,8 +314,8 @@ $jsonService = "Secloud"; class Secloud {
 				/*if(
 				 file_exists($dirpath.$file.'/.data')
 						&& file_exists($dirpath.$file.'/.hmac')
-						&& file_exists($dirpath.'/../files/'.$file.'/.data')
-						&& file_exists($dirpath.'/../files/'.$file.'/.hmac')
+						&& file_exists($dirpath.'/../FILES/'.$file.'/.data')
+						&& file_exists($dirpath.'/../FILES/'.$file.'/.hmac')
 				) {*/
 
 				// append the file to the results
