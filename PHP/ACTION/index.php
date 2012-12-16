@@ -363,6 +363,10 @@ if(realpath($_SERVER["SCRIPT_FILENAME"]) == realpath(__FILE__)) {
 						if(cookies.getItem("PHPSESSID")!=lastSessID) { 
 							login(lastId,lastPassword);
 							return;
+						} else {
+							window.sCredentials=null; lastId=null; lastPassword=null;
+							sessionStorage.setItem("sCredentials","null");
+							raiseCustomEvent('connectedUserChanged',{});
 						}
 					default:
 						Dialogs.showMessage(errMessage+" (Erreur "+data+")", "Connexion impossible"); 
