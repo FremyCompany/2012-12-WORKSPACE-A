@@ -1,0 +1,26 @@
+<?php
+
+// DB
+define('C_DB_HOST','mysql.archipoll.com');
+define('C_DB_USER','archipoll');
+define('C_DB_PASSWORD','archicouille');
+define('C_DB_NAME','archipollcom');
+
+// LINKS
+define('C_LINKS_URL','http://www.archipoll.com/');
+
+
+// META
+define('C_META_AUTHOR','');
+define('C_META_COPYRIGHT','');
+define('C_META_EMAIL','');
+define('C_META_TITLE','');
+define('C_META_DESCRIPTION','');
+define('C_META_KEYWORDS','');
+
+// CONSTANTES
+define ('PWD_KEY','zefkKDEKV839adeesjekJEDVeeesjJEDK348eeJAejeJZDIkdedeJSEd');
+require_once(DIR."ROOT/CONFIG/mysql_tables.php");
+require_once(DIR."ROOT/CONFIG/dirnames.php");
+require_once(DIR."ROOT/CONFIG/pictures.php");
+?>

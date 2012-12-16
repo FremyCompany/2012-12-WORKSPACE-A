@@ -5,7 +5,7 @@ function ADDFILE(isNew,fileName){
 	self.showSuccess=ko.observable(false);
 
 	self.infoUpload=ko.observable("");
-	
+	self.text=ko.observable("Add a new file");
 	self.showLoadingFile=ko.observable(false);
 	self.closeAdd=function(){
 		hideElem($("#addFile"));
@@ -22,6 +22,9 @@ function ADDFILE(isNew,fileName){
 		else
 			self.showLoadingFile(true);
 	};
+	self.setTitle=function(txt){
+		self.text(txt);
+	}
 	self.showFail=function(txt){
 		self.showUpload(false);
 		self.showError(true);

@@ -2,7 +2,6 @@ var model = new USERPAGE();
 ko.applyBindings(model, document.getElementById('home'));
 
 var user=getURLParameter("user");
-alert(user);
 if(user==null){
 	//myPage
 	$.ajax({
@@ -39,6 +38,7 @@ else{
 					rep.login=user;
 					model.init(rep,false);
 					var modelAddFile=new ADDFILE(false);
+					modelAddFile.setTitle("Share a file")
 					ko.applyBindings(modelAddFile, document.getElementById('addFile'));
 					if (typeof FileReader == "undefined") alert ("Sorry your browser does not support the File API and this demo will not work for you");
 					fileSave = new FileSave(
@@ -105,7 +105,7 @@ function USERPAGE() {
 		}
 		else{
 			self.userTitle("Profil of "+userInfo.firstName);
-			self.titleFiles("Files shared with "+userInfo.firstName);
+			self.titleFiles("Files that "+userInfo.firstName+" shares with you");
 		}
 		self.modifInfo=function(){
 			if(self.modif()==false){

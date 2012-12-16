@@ -1,0 +1,7 @@
+  <?php
+include_once('ROOT/FUNCTIONS/initialize.php');
+
+global $TBS;
+$TBS->LoadTemplate('TEMPLATE/create_decision.htm');
+$TBS->Show();
+?>
