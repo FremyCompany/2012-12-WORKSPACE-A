@@ -5,7 +5,7 @@ for(var i=0;i<20;i++){
 }
 var model = new HOME();
 ko.applyBindings(model, document.getElementById('home'));
-Secloud.getAllUserInfo(function(ok,users){
+Secloud.getAllUsersInfo(function(ok,users){
 	if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }	
 	model.setUser(users);
 });
@@ -34,7 +34,7 @@ $.ajax({
 function HOME() {
 	var self=this;
 	self.users=[];
-	self.setUser(users){
+	self.setUser=function(users){
 		self.users=users;
 	}
 	self.addFile=function(){
