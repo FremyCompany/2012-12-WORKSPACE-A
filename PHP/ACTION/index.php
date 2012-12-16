@@ -198,7 +198,7 @@ $jsonService = "Secloud"; class Secloud {
 		return array(
 				"firstName"	=> file_get_contents(USERS_FOLDER.$login.'/user/firstName.txt'),
 				"lastName" 	=> file_get_contents(USERS_FOLDER.$login.'/user/lastName.txt'),
-				"mail" 		=> file_get_contents(USERS_FOLDER.$login.'/user/mail.txt')
+				"mail" 		=> file_get_contents(USERS_FOLDER.$login.'/user/mail.txt'),
 				"url" 		=> "?page=userPage&user=".url_encode(pathDecode($login))
 		);
 
