@@ -172,7 +172,8 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 				//...
 			}, false);
 			upload.addEventListener("load", function (ev) {
-				//...
+				console.log(xhr.responseText);
+				
 			}, false);
 			upload.addEventListener("error", function (ev) {console.log(ev);}, false);
 			xhr.open(

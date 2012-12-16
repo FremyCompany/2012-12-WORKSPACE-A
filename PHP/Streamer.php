@@ -60,17 +60,20 @@ class File_Upload
 		}
 		if($this->fileType=="File" || $this->fileType=="Key")
 		{
-			$this->path.="/.data";
+			$path=$this->path."/.data";
 		}
 		if($this->fileType=="FileSign" || $this->fileType=="KeySign") 
 		{
-			$this->path.="/.sign";
+			$path=$this->path."/.sign";
 		}
 		file_put_contents(
-				safeDir($this->path),
+				safeDir($path),
 				file_get_contents("php://input")
 		);
-
+		//if(file_exists($this->path."/.data") && (file_exists($this->path."/.sign"))){
+			//checkFileSign($this->path,$_SERVER['DOCUMENT_ROOT']."/USERS/".$_SESSION['login']."/public.key");
+			return "lalalal "+$this->path;
+		//}
 		return true;
 	}
 }
