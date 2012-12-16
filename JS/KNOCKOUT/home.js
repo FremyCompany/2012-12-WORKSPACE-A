@@ -20,7 +20,6 @@ $.ajax({
 			 document.getElementById("Key"),
 			 document.getElementById("KeySign")],
 			 modelAddFile,
-			 document.getElementById("uploading_info"),
 			 null,
 			 null
 	);

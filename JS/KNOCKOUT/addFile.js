@@ -1,5 +1,11 @@
 function ADDFILE(isNew,fileName){
 	self=this;
+	self.showUpload=ko.observable(false);
+	self.showError=ko.observable(false);
+	self.showSuccess=ko.observable(false);
+
+	self.infoUpload=ko.observable("");
+	
 	self.showLoadingFile=ko.observable(false);
 	self.closeAdd=function(){
 		hideElem($("#addFile"));
@@ -15,5 +21,24 @@ function ADDFILE(isNew,fileName){
 			self.showLoadingFile(false);
 		else
 			self.showLoadingFile(true);
+	};
+	self.showFail=function(txt){
+		self.showUpload(false);
+		self.showError(true);
+		self.showSuccess(false);
+		self.infoUpload(txt);
+		
+	};
+	self.showComplete=function(){
+		self.showUpload(false);
+		self.showError(false);
+		self.showSuccess(true);
+		self.infoUpload("Upload complete");
+	};
+	self.showUploading=function(){
+		self.showUpload(true);
+		self.showError(false);
+		self.showSuccess(false);
+		self.infoUpload("Uploading...");
 	};
 }

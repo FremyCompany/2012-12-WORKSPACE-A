@@ -46,7 +46,6 @@ else{
 							 document.getElementById("Key"),
 							 document.getElementById("KeySign")],
 							 modelAddFile,
-							 document.getElementById("uploading_info"),
 							 user
 					);
 					fileSave.init();

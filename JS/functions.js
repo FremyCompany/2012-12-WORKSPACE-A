@@ -20,7 +20,6 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 	Key	= f[2],
 	KeySign = f[3],
 	AddFileVModel=addFileVModel,
-	UploadInfo=uploadInfo,
 	showComplete=true,
 	//user with whom we share
 	User_login=user_info,
@@ -87,44 +86,25 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 		{
 			ev.preventDefault();
 			AddFileVModel.loadingFile();
-			var txtComplete=document.getElementById("uploadComplete");
-			if(txtComplete!=null)
-				UploadInfo.removeChild(txtComplete);
-			var txt=document.getElementById("loader");
-			var p = document.createElement("p");
-			if(showComplete){
-				if(txt!=null)
-					UploadInfo.removeChild(txt);
-				var p = document.createElement("p");
-				p.id = "loader";
-				var pText = document.createTextNode("Uploading...");
-				p.appendChild(pText);
-				UploadInfo.appendChild(p);
-			}
+			AddFileVModel.showUploading();
 			while (fileQueue.length > 0) {
 				var item = fileQueue.pop();
 				if (item.file.size < 10485760) {
 					uploadFile(item.file,item.item);
 					showComplete=true;
 				} else {
-					p.textContent = "One file is to large (max : 10 mo) ";
-					p.style["color"] = "red";
+					AddFileVModel.showFail("One file is too large (max 10 Mo)");
 					showComplete=false;
 				}
 			}
 			AddFileVModel.loadingFile();
 			if(showComplete){
-				UploadInfo.removeChild(p);
-				p = document.createElement("p");
-				p.id = "uploadComplete";
-				var pText = document.createTextNode("Upload Complete");
-				p.appendChild(pText);
-				UploadInfo.appendChild(p);
+				AddFileVModel.showComplete();
 			}
 		}
 		else
 		{
-			alert("Give all the files ! ");
+			AddFileVModel.showFail("Give all the files !");
 		}
 	};
 	var addFileListItems = function (files,item) {
@@ -169,7 +149,6 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 			var xhr = new XMLHttpRequest(),
 			upload = xhr.upload;
 			upload.addEventListener("progress", function (ev) {
-				//...
 			}, false);
 			upload.addEventListener("load", function (ev) {
 				console.log(xhr.responseText);
@@ -178,9 +157,13 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 			//xhr.responseType="text";
 			xhr.onreadystatechange=function() {
 				if(xhr.readyState==4) {
-					console(xhr.responseText);
+					console.log(xhr.responseText);
+					if(xhr.responseText=='0');
+					{
+						AddFileVModel.showFail("The signature one the key or the file doesn't correspond !");
+					}
 				}
-			}
+			};
 			xhr.open(
 					"POST",
 					"PHP/upload.php"
@@ -193,7 +176,6 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 			if(User_login!=null){
 				xhr.setRequestHeader("X_File_user",User_login+"_2");
 			}
-			//alert(file.name+" "+item.name+" "+FileName);
 			xhr.send(file);
 		}
 	};

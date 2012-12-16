@@ -5,8 +5,6 @@
 			<div class="content">
 				<div class="mainDialog">
 					<div class="addFileDialog aspect">
-						<!-- ko ifnot : $root.showSuccess -->
-						<!-- ko ifnot : $root.loading -->
 						<div class="header">Add a new file</div>
 						<div class="form">
 							<div class="contentform">
@@ -40,23 +38,17 @@
 							<!-- ko if : $root.showLoadingFile -->
 							<img class="loading_here" src="/TEMPLATE/PICTURES/spinner.gif">
 							<!-- /ko -->
-							<div id="uploading_info"></div>
+							<!-- ko if : $root.showUpload -->
+							<div id="uploading_info" class="orange" data-bind="text : infoUpload"></div>
+							<!-- /ko -->
+							<!-- ko if : $root.showSuccess -->
+							<div id="uploading_info" class="green" data-bind="text : infoUpload"></div>
+							<!-- /ko -->
+							<!-- ko if : $root.showError -->
+							<div id="uploading_info" class="red" data-bind="text : infoUpload"></div>
+							<!-- /ko -->
 						</div>
-						<!-- /ko -->
-						<!-- ko if : $root.loading -->
-						<img class="loading" src="/TEMPLATE/PICTURES/spinner.gif">
-						<!-- /ko -->
-						<!-- /ko -->
-						<!-- ko if : $root.showSuccess -->
-						<div style="margin: 20px; position: absolute; top: 4%;">
-							<div align="center" class="alert alert-success">
-								<h3 align="center">Add done !</h3>
-								<p align="center"></p>
-							</div>
-						</div>
-						<!-- /ko -->
 					</div>
-					<!-- /ko -->
 				</div>
 			</div>
 		</div>

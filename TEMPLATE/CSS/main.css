@@ -32,6 +32,10 @@ h1,h2,h3,h4				{ color: rgba(255, 255, 255, 0.9); }
 #home .person:active 	{ background-color:rgba(200,200,200,0.8); }
 #home .person:focus 	{ background-color:rgba(200,200,200,0.8); }
 
+.red 					{ color :rgb(255,30,30); }
+.green 					{ color :rgb(30,255,30); }
+.orange 				{ color :orange; }
+
 #userPage .userInfo 	{ color:rgba(240,240,240,0.9); }
 #userPage .files 		{ color: rgba(225, 225, 225, 0.9);width:100%;font-size: 150%; margin: auto;}
 #userPage .userTitle  	{ margin-bottom: 50px;text-align:center; }

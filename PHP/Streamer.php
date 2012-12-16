@@ -70,10 +70,16 @@ class File_Upload
 				safeDir($path),
 				file_get_contents("php://input")
 		);
-		//if(file_exists($this->path."/.data") && (file_exists($this->path."/.sign"))){
-			//checkFileSign($this->path,$_SERVER['DOCUMENT_ROOT']."/USERS/".$_SESSION['login']."/public.key");
-			return "lalalal "+$this->path;
-		//}
-		return true;
+		if(file_exists($this->path."/.data") && (file_exists($this->path."/.sign"))){
+			//if(checkFileSign($this->path,$_SERVER['DOCUMENT_ROOT']."/USERS/".$_SESSION['login']."/public.key")){
+				return 2;
+			//}
+			/*else{
+			 	deleteFile($this->path);
+				return 0;
+			 }*/
+		}else{
+			return -1;
+		}
 	}
 }
