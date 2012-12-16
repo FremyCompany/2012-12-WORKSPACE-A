@@ -13,6 +13,7 @@ function safeDir($dir) { return str_replace("..","",str_replace("...","",$dir));
 // transform an aribtrary string into a safe file name
 //
 function pathEncode($str) { 
+	if($str=="") cThrow(ERR_ILLOGICAL);
 	return str_replace(".","||",		// we can't leave . because it leads to false file extensions
 		str_replace("%","|",			// we can't leave % because it causes issues with URLs
 			rawurlencode($str)			// we don't want special chars
@@ -24,6 +25,7 @@ function pathEncode($str) {
 // transform back an aribtrary string from a safe file name
 //
 function pathDecode($str) { 
+	if($str=="") cThrow(ERR_ILLOGICAL);
 	return rawurldecode(				// we revert special char encoding
 		str_replace("|","%",			// we revert % encoding
 			str_replace("||",".",$str)	// we revert . encoding
@@ -263,6 +265,7 @@ $jsonService = "Secloud"; class Secloud {
 			
 			// craft the user info
 			$_SESSION['user'] = array(
+				"login"		=> pathDecode($_SESSION['login']),
 				"firstName"	=> file_get_contents(USERS_FOLDER.$login.'/user/firstName.txt'),
 				"lastName"	=> file_get_contents(USERS_FOLDER.$login.'/user/lastName.txt'),
 				"mail"		=> file_get_contents(USERS_FOLDER.$login.'/user/mail.txt'),
@@ -396,7 +399,7 @@ if(realpath($_SERVER["SCRIPT_FILENAME"]) == realpath(__FILE__)) {
 	function updateData(ok, data, errMessage) {
 		try {
 			if(ok) {
-				if(!window.sCredentials || data[0]!=window.sCredentials[0]) {
+				if(!window.sCredentials || data.login!=window.sCredentials.login) {
 					window.sCredentials = data; lastId=null; lastPassword=null;
 					sessionStorage.setItem("sCredentials",JSON.stringify(data));
 					raiseCustomEvent('connectedUserChanged',{});

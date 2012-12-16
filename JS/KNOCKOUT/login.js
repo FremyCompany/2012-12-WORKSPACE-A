@@ -41,7 +41,7 @@ function LOGIN() {
 			});
 			
 			// start login
-			sCredentialsManager.login(self.inputEmail(),SHA512(self.inputPassword()))
+			sCredentialsManager.login(self.inputLogin(),SHA512(self.inputPassword()))
 			self.loading(true);
 			
 		}
