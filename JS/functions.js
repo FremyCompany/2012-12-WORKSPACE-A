@@ -157,8 +157,7 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 			//xhr.responseType="text";
 			xhr.onreadystatechange=function() {
 				if(xhr.readyState==4) {
-					console.log(xhr.responseText);
-					if(xhr.responseText=='0');
+					if(xhr.responseText=='0')
 					{
 						AddFileVModel.showFail("The signature one the key or the file doesn't correspond !");
 					}
