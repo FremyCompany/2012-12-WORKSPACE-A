@@ -1,5 +1,9 @@
 <div id="userPage">
 	<div class="content">
+		<div style="float:right;">
+			<span class="btn btn-medium btn-inverse btn-login" data-bind="click : $root.logout">Logout</span> <a
+				class="btn btn-medium btn-inverse btn-login" href="?page=home">Homepage</a>
+		</div>
 		<h1 class="userTitle" data-bind="text : userTitle"></h1>
 		<!-- ko if : $root.myPage -->
 		<div style="float: right; position: relative; right: 30px;">
@@ -36,24 +40,21 @@
 			<input class="modifMyInfo" type="text" name="Firstname"
 				placeholder="Firstname"
 				data-bind="value : userInfo.Firstname,valueUpdate: 'afterkeydown'"
-				autocomplete="on" />
-			<input class="modifMyInfo" type="text"
+				autocomplete="on" /> <input class="modifMyInfo" type="text"
 				name="Lastname" placeholder="Lastname"
 				data-bind="value : userInfo.Lastname,valueUpdate: 'afterkeydown'"
-				autocomplete="on" />
-			<input class="modifMyInfo" type="text"
+				autocomplete="on" /> <input class="modifMyInfo" type="text"
 				name="Email" placeholder="Email"
 				data-bind="value : userInfo.Email,valueUpdate: 'afterkeydown'"
-				autocomplete="on" />
-			<input class="modifMyInfo" type="text"
+				autocomplete="on" /> <input class="modifMyInfo" type="text"
 				name="address" placeholder="Address"
 				data-bind="value : userInfo.Address,valueUpdate: 'afterkeydown'"
-				autocomplete="on" />
-			<input class="modifMyInfo" type="text"
+				autocomplete="on" /> <input class="modifMyInfo" type="text"
 				name="phoneNumber" placeholder="Phone number"
 				data-bind="value : userInfo.Phone,valueUpdate: 'afterkeydown'"
 				autocomplete="on" />
-			<div style="position:relative;left:-10px;" class="btn btn-large btn-inverse"
+			<div style="position: relative; left: -10px;"
+				class="btn btn-large btn-inverse"
 				data-bind="click : $root.saveModif">Save</div>
 			<div class="btn-certificate btn btn-large btn-inverse"
 				data-bind="click : $root.revocation">Revoke my certificate</div>

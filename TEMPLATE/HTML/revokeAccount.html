@@ -1,0 +1,36 @@
+<div class="dialog">
+	<div class="outer">
+		<div class="background" data-bind="click : closeAdd"></div>
+		<div class="middle">
+			<div class="content">
+				<div class="mainDialog">
+					<div class="revokeAccount aspect">
+						<!-- ko ifnot : $root.loading -->
+						<div class="header">To revoke your account please enter your password</div>
+						<div class="form">
+							<div class="contentform">
+								
+							</div>
+							<!-- ko if : $root.showMessage -->
+							<span class="label label-important"
+								data-bind="text: $root.message"></span>
+							<!-- /ko -->
+							<div
+								style="text-align: center; margin-top: 15px; margin-bottom: 5px;">
+								<div class="btn btn-large btn-inverse btn-login"
+									data-bind="click : $root.closeAdd">Cancel</div>
+								<div data-bind="click : revoke" class="btn btn-large btn-inverse btn-login"
+									>Validate</div>
+
+							</div>
+						</div>
+						<!-- /ko -->
+						<!-- ko if : $root.loading -->
+						<img class="loading" src="/TEMPLATE/PICTURES/spinner.gif">
+						<!-- /ko -->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

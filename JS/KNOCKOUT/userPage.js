@@ -55,4 +55,7 @@ function USERPAGE(userInfo) {
 	self.saveModif=function(){
 		alert("save modif");
 	};
+	self.logout=function(){
+		sCredentialsManager.logout();
+	};
 };

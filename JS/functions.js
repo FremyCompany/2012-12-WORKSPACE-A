@@ -8,7 +8,7 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 	UploadInfo=uploadInfo,
 	showComplete=true,
 	//user with whom we share
-	user_info=user_info,
+	User_login=user_info,
 	fileName=null,
 	fileQueue = new Array();
 
@@ -28,55 +28,82 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 
 	this.addFile = function () {
 		addFileListItems(this.files,File);
+		File.has=true;
 	};
 	this.addSign = function () {
 		addFileListItems(this.files,Sign);
+		Sign.has=true;
 	};
 	this.addKey = function () {
 
 		addFileListItems(this.files,Key);
+		Key.has=true;
 	};
 	this.addKeySign = function () {
 		addFileListItems(this.files,KeySign);
+		KeySign.has=true;
 	};
-
-
-	this.uploadQueue = function (ev) {
-		ev.preventDefault();
-		AddFileVModel.loadingFile();
-		var txtComplete=document.getElementById("uploadComplete");
-		if(txtComplete!=null)
-			UploadInfo.removeChild(txtComplete);
-		var txt=document.getElementById("loader");
-		var p = document.createElement("p");
-		if(showComplete){
-			if(txt!=null)
-				UploadInfo.removeChild(txt);
-			var p = document.createElement("p");
-			p.id = "loader";
-			var pText = document.createTextNode("Uploading...");
-			p.appendChild(pText);
-			UploadInfo.appendChild(p);
+	this.checkHasAll=function(){
+		if(User_login==null)
+		{
+			//New file
+			if(KeySign.has==true && Key.has==true && Sign.has==true && File.has==true)
+				return true;
 		}
-		while (fileQueue.length > 0) {
-			var item = fileQueue.pop();
-			if (item.file.size < 10485760) {
-				uploadFile(item.file,item.item);
-				showComplete=true;
-			} else {
-				p.textContent = "One file is to large (max : 10 mo) ";
-				p.style["color"] = "red";
-				showComplete=false;
+		else{
+			//New share
+			if(KeySign.has==true && Key.has==true)
+			{
+				return true;
 			}
 		}
-		AddFileVModel.loadingFile();
-		if(showComplete){
-			UploadInfo.removeChild(p);
-			p = document.createElement("p");
-			p.id = "uploadComplete";
-			var pText = document.createTextNode("Upload Complete");
-			p.appendChild(pText);
-			UploadInfo.appendChild(p);
+		return false;
+
+	};
+
+	this.uploadQueue = function (ev) {
+		if(FileSave.checkHasAll())
+		{
+			ev.preventDefault();
+			AddFileVModel.loadingFile();
+			var txtComplete=document.getElementById("uploadComplete");
+			if(txtComplete!=null)
+				UploadInfo.removeChild(txtComplete);
+			var txt=document.getElementById("loader");
+			var p = document.createElement("p");
+			if(showComplete){
+				if(txt!=null)
+					UploadInfo.removeChild(txt);
+				var p = document.createElement("p");
+				p.id = "loader";
+				var pText = document.createTextNode("Uploading...");
+				p.appendChild(pText);
+				UploadInfo.appendChild(p);
+			}
+			while (fileQueue.length > 0) {
+				var item = fileQueue.pop();
+				if (item.file.size < 10485760) {
+					uploadFile(item.file,item.item);
+					showComplete=true;
+				} else {
+					p.textContent = "One file is to large (max : 10 mo) ";
+					p.style["color"] = "red";
+					showComplete=false;
+				}
+			}
+			AddFileVModel.loadingFile();
+			if(showComplete){
+				UploadInfo.removeChild(p);
+				p = document.createElement("p");
+				p.id = "uploadComplete";
+				var pText = document.createTextNode("Upload Complete");
+				p.appendChild(pText);
+				UploadInfo.appendChild(p);
+			}
+		}
+		else
+		{
+			alert("Give all the files ! ");
 		}
 	};
 	var addFileListItems = function (files,item) {
@@ -95,6 +122,18 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 	var showFileInList = function (ev) {
 		var file = ev.target.file;
 		var item = ev.target.item;
+		var elemToDelete=null;
+		for(var i=0;i<fileQueue.length;i++)
+		{
+			if(fileQueue[i].item==item)
+			{
+				//item already put
+				elemToDelete=fileQueue[i];
+			}
+		}
+		if(elemToDelete!=null){
+			fileQueue.remove(elemToDelete);
+		}
 		if (file) {
 			fileQueue.push({
 				file : file,
@@ -124,8 +163,8 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 			xhr.setRequestHeader("X-File-Name", file.name);
 			xhr.setRequestHeader("X-File-type", item.name);
 			xhr.setRequestHeader("X-File",fileName);
-			if(user_info!=null){
-				xhr.setRequestHeader("X_File_user",user_info);
+			if(User_login!=null){
+				xhr.setRequestHeader("X_File_user",User_login);
 			}
 			alert(file.name+" "+item.name+" "+fileName);
 			xhr.send(file);
