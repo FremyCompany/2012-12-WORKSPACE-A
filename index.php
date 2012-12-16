@@ -4,8 +4,16 @@ session_start();
 $page_description="Project sécu II";
 
 if(isset($_GET["page"])){
+	
+	// logged out users can't access the site
+	if(!isset($_SESSION['login'])) {
+		header('Location: /'); exit;
+	}
+	
+	// the other can
 	$page=$_GET["page"];
 	$content="TEMPLATE/HTML/".$page.".html";
+	
 }
 else{
 	$content="TEMPLATE/HTML/welcome.html";

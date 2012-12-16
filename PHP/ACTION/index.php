@@ -393,6 +393,16 @@ if(realpath($_SERVER["SCRIPT_FILENAME"]) == realpath(__FILE__)) {
 	};
 	window.sCredentials = window.sCredentialsManager.defaultValue;
 	
+	// check that the user has access to this page
+	function checkShowLogin(){
+    	if(window.location.pathname!="/" && (!sCredentials || !sCredentials.login)) {
+        	window.location.href="/";
+		}
+    };
+	
+    watchCustomEvent('connectedUserChanged',checkShowLogin);
+
+	
     // if cache is empty
     if(!sessionStorage.getItem("sCredentials")) {
 	
@@ -411,14 +421,6 @@ if(realpath($_SERVER["SCRIPT_FILENAME"]) == realpath(__FILE__)) {
 		}
 		
     }
-    function checkShowLogin(){
-    	if(window.location.pathname!="/" && !sCredentials || !sCredentials.login) {
-        	window.location.href="/";
-        	}
-    };
-    checkShowLogin();
-    watchCustomEvent('connectedUserChanged',checkShowLogin());
-
     
 	// Regulary update connection status (keep session on server)
     setInterval(fetchData, 30000);
