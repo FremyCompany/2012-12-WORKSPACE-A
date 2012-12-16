@@ -2,6 +2,7 @@ var model = new USERPAGE();
 ko.applyBindings(model, document.getElementById('home'));
 
 var user=getURLParameter("user");
+alert(user);
 if(user==null){
 	//myPage
 	$.ajax({
