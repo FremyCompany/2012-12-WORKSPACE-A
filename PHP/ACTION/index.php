@@ -58,6 +58,9 @@ $jsonService = "Secloud"; class Secloud {
 		// clean
 		unset($_SESSION['login']); unset($_SESSION['user']);
 		
+		// delete session and recreate one (just to be sure)
+		session_destroy(); session_start();
+		
 		// ok
 		return null;
 	}
