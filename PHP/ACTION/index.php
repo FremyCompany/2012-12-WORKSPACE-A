@@ -244,7 +244,9 @@ $jsonService = "Secloud"; class Secloud {
 //
 // FILES
 //
- 
+ public static function getMyFiles(){
+ 	return Secloud::getFilesFor($_SESSION["login"]);
+ }
  //
  // Returns a list of all the files you have access from a user
  //
@@ -258,7 +260,7 @@ $jsonService = "Secloud"; class Secloud {
   
   // check that the user exists
   if(!is_dir(USERS_FOLDER.$login)) { cThrow(ERR_NOT_FOUND); }
-  
+  $result = array();
   // check that data exists for you by this user
   $dirpath=USERS_FOLDER.$login.'/'.$_SESSION['login'];
   if(!is_dir($dirpath)) { return $result; } 
@@ -274,20 +276,20 @@ $jsonService = "Secloud"; class Secloud {
    if($file=="."||$file=="..") { continue; }
    
    // check that we only give access to folders
-   if (is_dir($dirpath.$file)) {
+   if (is_dir($dirpath."/".$file)) {
     
     // check that the linked data files still exist (and are signed)
-    if(
+    /*if(
                     file_exists($dirpath.$file.'/.data')
                     && file_exists($dirpath.$file.'/.hmac')
                     && file_exists($dirpath.'/../files/'.$file.'/.data')
                     && file_exists($dirpath.'/../files/'.$file.'/.hmac')
-                ) {
+                ) {*/
     
      // append the file to the results
-     $result[] = array(pathDecode($file));
+     $result[] = array("name"=>pathDecode($file));
      
-    }
+    //}
     
    }
    

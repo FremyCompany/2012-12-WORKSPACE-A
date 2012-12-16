@@ -32,10 +32,12 @@ h1,h2,h3,h4				{ color: rgba(255, 255, 255, 0.9); }
 #home .person:active 	{ background-color:rgba(200,200,200,0.8); }
 #home .person:focus 	{ background-color:rgba(200,200,200,0.8); }
 #userPage .userInfo 	{ color:rgba(240,240,240,0.9); }
-#userPage .files 		{ color: rgba(225, 225, 225, 0.9);width: 70%; font-size: 150%; text-align: center; margin: auto;}
+#userPage .files 		{ color: rgba(225, 225, 225, 0.9);width:100%;font-size: 150%; text-align: center; margin: auto;}
 #userPage .userTitle  	{ margin-bottom: 50px;text-align:center; }
 #userPage .modifMyInfo { width:100%;}
 #userPage .btn-certificate { position:relative;left:16px;}
+#userPage .file			{ text-decoration:none;cursor:pointer;display: inline-block;vertical-align:top; width: 40%; padding-top:10px;padding-bottom:10px; border-radius: 2px; margin-left: 10px; margin-right: 10px; background-color: rgba(70, 70, 70, 0.9); }
+#userPage .file:hover	{ background-color: rgba(100, 100, 100, 0.9); }
 #addFile .background,#revokeAccount .background { position:fixed;top:0px;left:0px;width:100%;height:100%;background-color:rgba(200,200,200,0.8); }
 #addFile .addFileDialog { width:550px;min-height:200px; }
 #loader,#uploadComplete { width:100%;text-align:center;position: relative;margin-bottom:10px;top: 10px;font-style:italic; }
