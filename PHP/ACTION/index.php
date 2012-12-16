@@ -275,7 +275,7 @@ $jsonService = "Secloud"; class Secloud {
 	// Returns a list of all the files you have access from a user
 	//
 	public static function getFilesFor($login) {
-
+		
 		// check that you're connected
 		if(!isConnected()) {
 			cThrow(ERR_RIGHTS);
