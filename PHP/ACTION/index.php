@@ -59,7 +59,7 @@ $jsonService = "Secloud"; class Secloud {
 		unset($_SESSION['login']); unset($_SESSION['user']);
 		
 		// ok
-		return true;
+		return null;
 	}
 	
 	//
