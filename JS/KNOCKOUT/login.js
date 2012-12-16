@@ -38,8 +38,12 @@ function LOGIN() {
 				if(sCredentials) {
 					window.location.href="?page=home";
 				}
+				else{
+					self.loading(false);
+					self.showMessage(true);
+					self.message("Wrong password or login");
+				}
 			});
-			
 			// start login
 			sCredentialsManager.login(self.inputLogin(),SHA512(self.inputPassword()))
 			self.loading(true);
@@ -58,19 +62,19 @@ function LOGIN() {
 			self.message("Fill all information !!");
 		}
 		else{
-			var info={ "email" : self.inputEmail(),
+			var info={ "mail" : self.inputEmail(),
 					"firstName" : self.inputFirstName(), 
 					"lastName" : self.inputLastName(),
 					"address" : self.inputAddress(),
 					"phone" : self.inputPhone(),
-					"register" : self.inputRegister
+					"idNumber" : self.inputRegister
 			};
-			Actions.verifInformation(info,self.inputPassphrase(),function(ok,rep){
+			Secloud.register(info,self.inputPassphrase(),function(ok,rep){
 				if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
 				self.loading(false);
 				if(!rep){
 					self.showMessage(true);
-					self.message("Some information are wrong !");
+					self.message("Some information are wrong or the login is already use !");
 				}
 				else{
 					self.showSuccess(true);
@@ -78,7 +82,6 @@ function LOGIN() {
 			});
 			self.showMessage(false);
 			self.loading(true);
-			alert("create");
 		}
 	};
 	self.returnSignIn=function(){

@@ -1,10 +1,8 @@
 <?php
 
 // INCLUDES
-require_once($_SERVER['DOCUMENT_ROOT'].'/PHP/FUNCTIONS/core.php');
+require_once($_SERVER['DOCUMENT_ROOT']."/PHP/init.php");
 
-// constants
-define('USERS_FOLDER',($_SERVER['DOCUMENT_ROOT']."/USERS/"));
 
 // Make sure a path is valid
 function safeDir($dir) { return str_replace("..","",str_replace("...","",$dir)); }
@@ -140,7 +138,7 @@ $jsonService = "Secloud"; class Secloud {
 		$login = pathEncode($data['firstName'].' '.$data['idNumber']);
 		
 		// check that the login don't exist already
-		if(is_dir(USERS_FOLDER.$login)) { cThrow(ERR_ARGS,'Login déjà utilisé'); }
+		if(is_dir(USERS_FOLDER.$login)) { cThrow(ERR_ARGS,'Login déjà utilisé');return false; }
 		
 		// create the user folders
 		mkdir(USERS_FOLDER.$login);
