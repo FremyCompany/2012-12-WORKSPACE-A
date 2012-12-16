@@ -16,8 +16,8 @@
 		<!-- ko ifnot : $root.modif -->
 		<div class="userInfo">
 			<h2>
-				<span data-bind="text : userInfo.firstname"></span> <span
-					data-bind="text : userInfo.lastname"></span>
+				<span data-bind="text : userInfo.firstName"></span> <span
+					data-bind="text : userInfo.lastName"></span>
 			</h2>
 			<div style="font-size: 110%;">
 				<div style="margin-bottom: 10px;">
@@ -39,23 +39,23 @@
 		<div style="width: 45%; text-align: right; position: relative;">
 			<input class="modifMyInfo" type="text" name="Firstname"
 				placeholder="Firstname"
-				data-bind="value : userInfoObservable.firstname,valueUpdate: 'afterkeydown'"
+				data-bind="value : inputFirstName,valueUpdate: 'afterkeydown'"
 				autocomplete="on" />
 			<input class="modifMyInfo" type="text"
 				name="Lastname" placeholder="Lastname"
-				data-bind="value : userInfoObservable.lastname,valueUpdate: 'afterkeydown'"
+				data-bind="value : inputLastName,valueUpdate: 'afterkeydown'"
 				autocomplete="on" />
 			<input class="modifMyInfo" type="text"
 				name="Email" placeholder="Email"
-				data-bind="value : userInfoObservable.mail,valueUpdate: 'afterkeydown'"
+				data-bind="value : inputMail,valueUpdate: 'afterkeydown'"
 				autocomplete="on" />
 			<input class="modifMyInfo" type="text"
 				name="address" placeholder="Address"
-				data-bind="value : userInfoObservable.address,valueUpdate: 'afterkeydown'"
+				data-bind="value : inputAddress,valueUpdate: 'afterkeydown'"
 				autocomplete="on" />
 			<input class="modifMyInfo" type="text"
 				name="phoneNumber" placeholder="Phone number"
-				data-bind="value : userInfoObservable.phone,valueUpdate: 'afterkeydown'"
+				data-bind="value : inputPhone,valueUpdate: 'afterkeydown'"
 				autocomplete="on" />
 			<div style="position: relative; left: -5px;"
 				class="btn btn-large btn-inverse"

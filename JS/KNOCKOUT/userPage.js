@@ -26,14 +26,12 @@ Secloud.getMyUserInfo(function(ok,rep){
 function USERPAGE(userInfo) {
 	var self=this;
 	self.userInfo=userInfo;
-	self.userInfoObservable={
-			"id" : ko.observable(self.userInfo.id),
-			"Firstname" : ko.observable(self.userInfo.Firstname),
-			"Lastname" : ko.observable(self.userInfo.Lastname),
-			"Email" : ko.observable(self.userInfo.mail),
-			"Address" : ko.observable(self.userInfo.Address),
-			"Phone" : ko.observable(self.userInfo.Phone),
-	};
+	
+	self.inputFirstName=ko.observable(self.userInfo.firstName);
+	self.inputLastName=ko.observable(self.userInfo.lastName);
+	self.inputMail= ko.observable(self.userInfo.mail);
+	self.inputAddress= ko.observable(self.userInfo.address);
+	self.inputPhone= ko.observable(self.userInfo.phone);
 	
 	self.userTitle=ko.observable("");
 	self.titleFiles=ko.observable("");
@@ -74,6 +72,18 @@ function USERPAGE(userInfo) {
 	};
 	self.saveModif=function(){
 		alert("save modif");
+		var info={
+				"id" : userInfo.id,
+				"firstName" : self.inputFirstName(),
+				"lastLame" : self.inputLastName(),
+				"mail" : self.inputMail(),
+				"address" : self.inputAddress(),
+				"phone" : self.inputPhone(),
+		};
+		self.userInfo=info;
+		self.modif(false);
+		self.textButton("Modif");
+		Secloud.setMyUserInfo(info);
 	};
 	self.logout=function(){
 		sCredentialsManager.logout();

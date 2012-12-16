@@ -1,5 +1,4 @@
 function showElem(elem){
-	alert("show "+elem)
 	$("body").css('overflow','hidden');
 	elem.css('display','block');
 	elem.find('.content').css('position','relative').css('top','-1000px').animate({top: '0px'},200);
