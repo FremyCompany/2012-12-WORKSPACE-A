@@ -1,11 +1,12 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT']."/PHP/init.php");
-//require_once($_SERVER['DOCUMENT_ROOT']."/PHP/siteexplorer.php");
 
 class File_Upload
 {
+	private $file;
+	
 	private $fileName;
-	//File || Sign || Key || KeySign
+	//File || FileSign || Key || KeySign
 	private $fileType;
 	private $contentLength;
 	private $path;
@@ -13,9 +14,16 @@ class File_Upload
 
 	public function __construct()
 	{
-		if (array_key_exists('HTTP_X_FILE_TYPE',$_SERVER) && array_key_exists('HTTP_X_FILE_NAME', $_SERVER) && array_key_exists('CONTENT_LENGTH', $_SERVER)) {
+		if (array_key_exists('HTTP_X_FILE',$_SERVER) && array_key_exists('HTTP_X_FILE_TYPE',$_SERVER) && array_key_exists('HTTP_X_FILE_NAME', $_SERVER) && array_key_exists('CONTENT_LENGTH', $_SERVER)) {
 			$this->fileType =  $_SERVER['HTTP_X_FILE_TYPE'];
 			$this->fileName = $_SERVER['HTTP_X_FILE_NAME'];
+			$this->file = $_SERVER['HTTP_X_FILE'];
+			if(array_key_exists('HTTP_X_FILE_USER',$_SERVER)){
+				$this->user = $_SERVER['HTTP_X_FILE_USER']; 
+			}
+			else {
+				$this->user = $_SESSION['login'];
+			}
 			$this->contentLength = $_SERVER['CONTENT_LENGTH'];
 		} else throw new Exception("Error retrieving headers");
 	}
@@ -30,12 +38,24 @@ class File_Upload
 		if (!$this->contentLength > 0) {
 			throw new Exception('No file uploaded!');
 		}
-		if (!is_dir($this->path."/".$this->fileType)) {
-			mkdir($this->path."/".$this->fileType);
+		if($this->fileType=="File" || $this->fileType=="FileSign"){
+			$this->path=$this->path."/FILES";
+			if (!is_dir($this->path)) {
+				mkdir(safeDir($this->path));
+			}
+		}else if($this->fileType=="Key" || $this->fileType=="KeySign"){
+			$this->path=$this->path."/".$this->user;
+			if (!is_dir($this->path)) {
+				mkdir(safeDir($this->path));
+			}
+
 		}
-		//createDir(safeDir($this->path."/".$this->fileType));	
+		$this->path=$this->path."/".$this->file;
+		if (!is_dir($this->path)) {
+			mkdir(safeDir($this->path));
+		}
 		file_put_contents(
-				$this->path."/".$this->fileType."/".$this->fileName,
+				safeDir($this->path."/".$this->fileName),
 				file_get_contents("php://input")
 		);
 

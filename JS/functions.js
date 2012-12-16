@@ -1,6 +1,6 @@
 function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 
-	var file = f[0],
+	var File = f[0],
 	Sign = f[1],
 	Key	= f[2],
 	KeySign = f[3],
@@ -9,16 +9,17 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 	showComplete=true,
 	//user with whom we share
 	user_info=user_info,
+	fileName=null,
 	fileQueue = new Array();
 
 
 	this.init = function () {
 		//type of the file
-		file.name="File";
+		File.name="File";
 		Sign.name="FileSign";
 		Key.name="Key";
 		KeySign.name="KeySign";
-		file.onchange = this.addFile;
+		File.onchange = this.addFile;
 		Sign.onchange = this.addSign;
 		Key.onchange = this.addKey;
 		KeySign.onchange = this.addKeySign;
@@ -26,7 +27,7 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 	};
 
 	this.addFile = function () {
-		addFileListItems(this.files,file);
+		addFileListItems(this.files,File);
 	};
 	this.addSign = function () {
 		addFileListItems(this.files,Sign);
@@ -83,6 +84,9 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 			var fr = new FileReader();
 			fr.file = files[i];
 			fr.item = item;
+			if(item.name=="File"){
+				fileName=fr.file.name;
+			}
 			fr.onloadend = showFileInList;
 			fr.readAsDataURL(files[i]);
 		}
@@ -119,6 +123,11 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 			xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 			xhr.setRequestHeader("X-File-Name", file.name);
 			xhr.setRequestHeader("X-File-type", item.name);
+			xhr.setRequestHeader("X-File",fileName);
+			if(user_info!=null){
+				xhr.setRequestHeader("X_File_user",user_info);
+			}
+			alert(file.name+" "+item.name+" "+fileName);
 			xhr.send(file);
 		}
 	};
