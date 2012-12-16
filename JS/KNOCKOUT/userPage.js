@@ -30,10 +30,31 @@ else{
 			Secloud.getMyFiles(function(ok,files){
 				if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
 				$("#myFiles").html(html);
-				rep.login=user;
-				model.init(rep,false);
-				var modelMyFiles=new FILE_TO_SHARE(model,files);
-				ko.applyBindings(modelMyFiles, document.getElementById('myFiles'));
+				$.ajax({
+					url : "/TEMPLATE/HTML/addFile.html",
+					cache : false
+				}).done(function(html) {
+					$("#addFile").html(html);
+					rep.login=user;
+					model.init(rep,false);
+					var modelAddFile=new ADDFILE(false);
+					ko.applyBindings(modelAddFile, document.getElementById('addFile'));
+					if (typeof FileReader == "undefined") alert ("Sorry your browser does not support the File API and this demo will not work for you");
+					fileSave = new FileSave(
+							[null,
+							 null,
+							 document.getElementById("Key"),
+							 document.getElementById("KeySign")],
+							 modelAddFile,
+							 document.getElementById("uploading_info"),
+							 modelUser.userInfo.login
+					);
+					fileSave.init();
+					var upload = document.getElementById("upload");
+					upload.onclick = fileSave.uploadQueue;
+					var modelMyFiles=new FILE_TO_SHARE(model,files,fileSave);
+					ko.applyBindings(modelMyFiles, document.getElementById('myFiles'));
+				});
 			});
 		});
 	});

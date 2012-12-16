@@ -13,7 +13,7 @@ function hideElem(elem){
 function getURLParameter(name) {
     return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 }
-function FileSave  (f,addFileVModel,uploadInfo,user_info,filename) {
+function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 
 	var File = f[0],
 	Sign = f[1],
@@ -24,7 +24,7 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info,filename) {
 	showComplete=true,
 	//user with whom we share
 	User_login=user_info,
-	FileName=filename,
+	FileName=null,
 	fileQueue = new Array();
 
 
