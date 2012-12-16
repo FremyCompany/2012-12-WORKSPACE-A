@@ -1,8 +1,12 @@
 <div id="userPage">
 	<div class="content">
-		<div style="float:right;">
-			<span class="btn btn-medium btn-inverse btn-login" data-bind="click : $root.logout">Logout</span> <a
-				class="btn btn-medium btn-inverse btn-login" href="?page=home">Homepage</a>
+		<!-- ko ifnot : $root.loading -->
+		<div style="float: right;">
+			<!-- ko if : $root.myPage -->
+			<span class="btn btn-medium btn-inverse btn-login"
+				data-bind="click : $root.logout">Logout</span>
+			<!-- /ko -->
+			<a class="btn btn-medium btn-inverse btn-login" href="?page=home">Homepage</a>
 		</div>
 		<h1 class="userTitle" data-bind="text : userTitle"></h1>
 		<!-- ko if : $root.myPage -->
@@ -20,6 +24,7 @@
 					data-bind="text : userInfo.lastName"></span>
 			</h2>
 			<div style="font-size: 110%;">
+				<!-- ko if : $root.myPage -->
 				<div style="margin-bottom: 10px;">
 					<strong>Address:</strong> <span style="font-style: italic;"
 						data-bind="text : userInfo.address"></span>
@@ -28,6 +33,7 @@
 					<strong>Phone:</strong> <span style="font-style: italic;"
 						data-bind="text : userInfo.phone"></span>
 				</div>
+				<!-- /ko -->
 				<div>
 					<strong>Email:</strong> <span style="font-style: italic;"
 						data-bind="text : userInfo.mail"></span>
@@ -40,20 +46,16 @@
 			<input class="modifMyInfo" type="text" name="Firstname"
 				placeholder="Firstname"
 				data-bind="value : inputFirstName,valueUpdate: 'afterkeydown'"
-				autocomplete="on" />
-			<input class="modifMyInfo" type="text"
+				autocomplete="on" /> <input class="modifMyInfo" type="text"
 				name="Lastname" placeholder="Lastname"
 				data-bind="value : inputLastName,valueUpdate: 'afterkeydown'"
-				autocomplete="on" />
-			<input class="modifMyInfo" type="text"
+				autocomplete="on" /> <input class="modifMyInfo" type="text"
 				name="Email" placeholder="Email"
 				data-bind="value : inputMail,valueUpdate: 'afterkeydown'"
-				autocomplete="on" />
-			<input class="modifMyInfo" type="text"
+				autocomplete="on" /> <input class="modifMyInfo" type="text"
 				name="address" placeholder="Address"
 				data-bind="value : inputAddress,valueUpdate: 'afterkeydown'"
-				autocomplete="on" />
-			<input class="modifMyInfo" type="text"
+				autocomplete="on" /> <input class="modifMyInfo" type="text"
 				name="phoneNumber" placeholder="Phone number"
 				data-bind="value : inputPhone,valueUpdate: 'afterkeydown'"
 				autocomplete="on" />
@@ -75,6 +77,7 @@
 			data-bind="template: { name: 'person-template', foreach: users }">
 		</div>-->
 		</div>
+		<!-- /ko -->
 	</div>
 </div>
 

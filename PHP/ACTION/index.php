@@ -107,6 +107,7 @@ $jsonService = "Secloud"; class Secloud {
   if(!isConnected()) { cThrow(ERR_RIGHTS); }
   
   // create the user folder
+  if($pass)
   deleteFile(USERS_FOLDER.$_SESSION['login']);
   
   // return ok
@@ -175,7 +176,9 @@ $jsonService = "Secloud"; class Secloud {
   // craft the user info
   return array(
    "firstName" => file_get_contents(USERS_FOLDER.$login.'/user/firstName.txt'),
-   "lastName" => file_get_contents(USERS_FOLDER.$login.'/user/lastName.txt')
+   "lastName" => file_get_contents(USERS_FOLDER.$login.'/user/lastName.txt'),
+   "mail" => file_get_contents(USERS_FOLDER.$login.'/user/mail.txt')
+  		
   );
   
  }

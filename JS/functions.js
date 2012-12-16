@@ -9,6 +9,9 @@ function hideElem(elem){
 	});
 	elem.fadeOut(500);
 }
+function getURLParameter(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
+}
 function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 
 	var File = f[0],

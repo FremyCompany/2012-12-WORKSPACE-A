@@ -5,6 +5,12 @@ function REVOKE(){
 		hideElem($("#revokeAccount"))
 	};
 	self.revoke=function(){
-		alert("revoke");
+		if(self.inputPassword()!="")
+		{
+			Secloud.unregister(self.inputPassword(),function(ok,rep){
+				sCredentialsManager.logout();
+			});
+		}
+		console.log("wrong password");
 	};
 }
