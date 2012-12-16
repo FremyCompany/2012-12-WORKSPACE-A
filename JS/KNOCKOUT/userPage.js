@@ -47,7 +47,7 @@ else{
 							 document.getElementById("KeySign")],
 							 modelAddFile,
 							 document.getElementById("uploading_info"),
-							 modelUser.userInfo.login
+							 user
 					);
 					fileSave.init();
 					var upload = document.getElementById("upload");
