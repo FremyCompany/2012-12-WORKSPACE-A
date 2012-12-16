@@ -5,7 +5,7 @@
 			if(!isset($_REQUEST['args'])) { $_REQUEST['args'] = '[]'; }
 			$_ENV['json']=true; 
 			//addLog($_REQUEST['args']);
-			$result = call_user_func_array($jsonService.'::'.$_REQUEST['func'], json_decode($_REQUEST['args']));
+			$result = call_user_func_array($jsonService.'::'.$_REQUEST['func'], json_decode($_REQUEST['args'],true));
 					
 			echo js_encode(array(true,$result));
 			

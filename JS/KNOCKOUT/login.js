@@ -74,7 +74,7 @@ function LOGIN() {
 					"lastName" : self.inputLastName(),
 					"address" : self.inputAddress(),
 					"phone" : self.inputPhone(),
-					"idNumber" : self.inputRegister
+					"idNumber" : self.inputRegister()
 			};
 			Secloud.register(info,self.inputPassphrase(),function(ok,rep){
 				if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
