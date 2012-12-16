@@ -1,6 +1,6 @@
 <?php
 
-$page_description="Project sécu II";
+$page_description="Project sï¿½cu II";
 
 if(isset($_GET["page"])){
 	$page=$_GET["page"];
@@ -36,10 +36,11 @@ else{
 		type="text/javascript"></script>
 	<script src="JS/lib.js" type="text/javascript"></script>
 	<script src="PHP/ACTION/" type="text/javascript"></script>
-
+	<script src="JS/functions.js" type="text/javascript"></script>
+	
 	<div id="whole">
 		<?php 	include($content);?>
 	</div>
-	<div style="display:none;" id="addFile"></div>
+	<div style="display: none;" id="addFile"></div>
 </body>
 </html>

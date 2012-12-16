@@ -10,26 +10,35 @@
 						<div class="header">Add a new file</div>
 						<div class="form">
 							<div class="contentform">
-									<h5 style="color:rgba(255,255,255,0.9);">File to upload (encrypted or it will be deleted)</h5>
-									<input type=file data-bind="event: { change: function(e){ alert('!!') } }" />
-									<h5 style="color:rgba(255,255,255,0.9);">The file signature</h5>
-									<input type=file data-bind="event: { change: function(e){ alert('!!') } }" />
-									<h5 style="color:rgba(255,255,255,0.9);">The encryption key, encoded for you</h5>
-									<input type=file data-bind="event: { change: function(e){ alert('!!') } }" />
-									<h5 style="color:rgba(255,255,255,0.9);">The key signature</h5>
-									<input type=file data-bind="event: { change: function(e){ alert('!!') } }" />
+								<h5 style="color: rgba(255, 255, 255, 0.9);">File to upload
+									(encrypted or it will be deleted)</h5>
+								<input id="File" type=file />
+								<h5 style="color: rgba(255, 255, 255, 0.9);">The file
+									signature</h5>
+								<input id="Sign" type="file"/>
+								<h5 style="color: rgba(255, 255, 255, 0.9);">The encryption
+									key, encoded for you</h5>
+								<input id="Key" type=file />
+								<h5 style="color: rgba(255, 255, 255, 0.9);">The key
+									signature</h5>
+								<input  id="KeySign" type=file />
 							</div>
 							<!-- ko if : $root.showMessage -->
 							<span class="label label-important"
 								data-bind="text: $root.message"></span>
 							<!-- /ko -->
-							<div style="text-align: center; margin-top: 15px; margin-bottom: 5px;">
+							<div
+								style="text-align: center; margin-top: 15px; margin-bottom: 5px;">
 								<div class="btn btn-large btn-inverse btn-login"
 									data-bind="click : $root.closeAdd">Cancel</div>
-								<div class="btn btn-large btn-inverse btn-login"
-									data-bind="click: $root.newFile">Validate</div>
+								<div id="upload" class="btn btn-large btn-inverse btn-login"
+									>Validate</div>
 
 							</div>
+							<!-- ko if : $root.showLoadingFile -->
+							<img class="loading_here" src="/TEMPLATE/PICTURES/spinner.gif">
+							<!-- /ko -->
+							<div id="uploading_info"></div>
 						</div>
 						<!-- /ko -->
 						<!-- ko if : $root.loading -->

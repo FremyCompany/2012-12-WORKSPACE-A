@@ -13,6 +13,21 @@ $.ajax({
 	$("#addFile").html(html);
 	var modelAddFile=new ADDFILE();
 	ko.applyBindings(modelAddFile, document.getElementById('addFile'));
+	if (typeof FileReader == "undefined") alert ("Sorry your browser does not support the File API and this demo will not work for you");
+	FileAPI = new FileAPI(
+			[document.getElementById("File"),
+			 document.getElementById("Sign"),
+			 document.getElementById("Key"),
+			 document.getElementById("KeySign")],
+			 modelAddFile,
+			 document.getElementById("uploading_info")
+	);
+	FileAPI.init();
+	var upload = document.getElementById("upload");
+	upload.onclick = FileAPI.uploadQueue;
+
+
+
 });
 
 function HOME() {
