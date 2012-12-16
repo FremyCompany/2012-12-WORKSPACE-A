@@ -1,4 +1,4 @@
-function FileAPI  (f,addFileVModel,uploadInfo) {
+function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 
 	var file = f[0],
 	Sign = f[1],
@@ -6,13 +6,16 @@ function FileAPI  (f,addFileVModel,uploadInfo) {
 	KeySign = f[3],
 	AddFileVModel=addFileVModel,
 	UploadInfo=uploadInfo,
-	showComplete=true;
+	showComplete=true,
+	//user with whom we share
+	user_info=user_info,
 	fileQueue = new Array();
 
 
 	this.init = function () {
+		//type of the file
 		file.name="File";
-		Sign.name="Signature";
+		Sign.name="FileSign";
 		Key.name="Key";
 		KeySign.name="KeySign";
 		file.onchange = this.addFile;

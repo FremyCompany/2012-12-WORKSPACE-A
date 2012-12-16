@@ -1,12 +1,15 @@
 <?php
+require_once($_SERVER['DOCUMENT_ROOT']."/PHP/init.php");
+//require_once($_SERVER['DOCUMENT_ROOT']."/PHP/siteexplorer.php");
 
-class File_Streamer
+class File_Upload
 {
 	private $fileName;
 	//File || Sign || Key || KeySign
 	private $fileType;
 	private $contentLength;
 	private $path;
+	private $user;
 
 	public function __construct()
 	{
@@ -30,6 +33,7 @@ class File_Streamer
 		if (!is_dir($this->path."/".$this->fileType)) {
 			mkdir($this->path."/".$this->fileType);
 		}
+		//createDir(safeDir($this->path."/".$this->fileType));	
 		file_put_contents(
 				$this->path."/".$this->fileType."/".$this->fileName,
 				file_get_contents("php://input")

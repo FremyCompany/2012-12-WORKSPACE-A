@@ -14,17 +14,18 @@ $.ajax({
 	var modelAddFile=new ADDFILE();
 	ko.applyBindings(modelAddFile, document.getElementById('addFile'));
 	if (typeof FileReader == "undefined") alert ("Sorry your browser does not support the File API and this demo will not work for you");
-	FileAPI = new FileAPI(
+	FileSave = new FileSave(
 			[document.getElementById("File"),
 			 document.getElementById("Sign"),
 			 document.getElementById("Key"),
 			 document.getElementById("KeySign")],
 			 modelAddFile,
-			 document.getElementById("uploading_info")
+			 document.getElementById("uploading_info"),
+			 null
 	);
-	FileAPI.init();
+	FileSave.init();
 	var upload = document.getElementById("upload");
-	upload.onclick = FileAPI.uploadQueue;
+	upload.onclick = FileSave.uploadQueue;
 
 
 
