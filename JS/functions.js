@@ -82,7 +82,7 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 	};
 
 	this.uploadQueue = function (ev) {
-		if(FileSave.checkHasAll())
+		if(this.checkHasAll())
 		{
 			ev.preventDefault();
 			AddFileVModel.loadingFile();
@@ -106,7 +106,7 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 		{
 			AddFileVModel.showFail("Give all the files !");
 		}
-	};
+	}.bind(this);
 	var addFileListItems = function (files,item) {
 		for (var i = 0; i < files.length; i++) {
 			var fr = new FileReader();
