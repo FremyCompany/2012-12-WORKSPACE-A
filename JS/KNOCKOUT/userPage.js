@@ -50,9 +50,7 @@ else{
 							 user
 					);
 					fileSave.init();
-					var upload = document.getElementById("upload");
-					upload.onclick = fileSave.uploadQueue;
-					var modelMyFiles=new FILE_TO_SHARE(model,files,fileSave);
+					var modelMyFiles=new FILE_TO_SHARE(files,fileSave);
 					ko.applyBindings(modelMyFiles, document.getElementById('myFiles'));
 				});
 			});

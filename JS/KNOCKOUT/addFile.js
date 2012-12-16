@@ -1,4 +1,4 @@
-function ADDFILE(isNew,fileName){
+function ADDFILE(isNew){
 	self=this;
 	self.showUpload=ko.observable(false);
 	self.showError=ko.observable(false);
@@ -7,41 +7,39 @@ function ADDFILE(isNew,fileName){
 	self.infoUpload=ko.observable("");
 	self.text=ko.observable("Add a new file");
 	self.showLoadingFile=ko.observable(false);
+	
 	self.closeAdd=function(){
 		hideElem($("#addFile"));
-	};
-	self.newFile=function(){
-		alert("save");
 	};
 	self.isNew=isNew;
 	self.showMessage=ko.observable(false);
 	self.showSucces=ko.observable(false);
 	self.loadingFile=function(){
-		if(self.showLoadingFile())
-			self.showLoadingFile(false);
+		if(this.showLoadingFile()==true)
+			this.showLoadingFile(false);
 		else
-			self.showLoadingFile(true);
+			this.showLoadingFile(true);
 	};
 	self.setTitle=function(txt){
 		self.text(txt);
-	}
+	};
 	self.showFail=function(txt){
-		self.showUpload(false);
-		self.showError(true);
-		self.showSuccess(false);
-		self.infoUpload(txt);
+		this.showUpload(false);
+		this.showError(true);
+		this.showSuccess(false);
+		this.infoUpload(txt);
 		
 	};
 	self.showComplete=function(){
-		self.showUpload(false);
-		self.showError(false);
-		self.showSuccess(true);
-		self.infoUpload("Upload complete");
+		this.showUpload(false);
+		this.showError(false);
+		this.showSuccess(true);
+		this.infoUpload("Upload complete");
 	};
 	self.showUploading=function(){
-		self.showUpload(true);
-		self.showError(false);
-		self.showSuccess(false);
-		self.infoUpload("Uploading...");
+		this.showUpload(true);
+		this.showError(false);
+		this.showSuccess(false);
+		this.infoUpload("Uploading...");
 	};
 }

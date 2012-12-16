@@ -13,7 +13,7 @@ function hideElem(elem){
 function getURLParameter(name) {
     return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 }
-function FileSave  (f,addFileVModel,uploadInfo,user_info) {
+function FileSave  (f,addFileVModel,user_info) {
 
 	var File = f[0],
 	Sign = f[1],
@@ -23,9 +23,9 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 	showComplete=true,
 	//user with whom we share
 	User_login=user_info,
-	FileName=null,
 	fileQueue = new Array();
-
+;
+	this.FileName=null;
 
 	this.init = function () {
 		//type of the file
@@ -84,6 +84,7 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 	this.uploadQueue = function (ev) {
 		if(this.checkHasAll())
 		{
+			console.log(AddFileVModel);
 			ev.preventDefault();
 			AddFileVModel.loadingFile();
 			AddFileVModel.showUploading();
@@ -171,12 +172,12 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 			xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 			xhr.setRequestHeader("X-File-Name", file.name);
 			xhr.setRequestHeader("X-File-type", item.name);
-			xhr.setRequestHeader("X-File",FileName);
+			xhr.setRequestHeader("X-File",this.FileName);
 			if(User_login!=null){
 				xhr.setRequestHeader("X_File_user",User_login+"_2");
 			}
 			xhr.send(file);
 		}
-	};
+	}.bind(this);
 
 }

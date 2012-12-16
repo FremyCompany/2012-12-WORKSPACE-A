@@ -1,12 +1,11 @@
-function FILE_TO_SHARE(modelUser,files,FileSave){
+function FILE_TO_SHARE(files,fileSave){
 	self=this;
 	self.myFiles=files;
-	self.txt="File to share with "+modelUser.userInfo.login;
-	self.modelUser=modelUser;
 	self.selectFile=function(data){
-		//console.log(data);
-		//console.log(modelUser);
-		FileSave.FileName=data.name;
+		fileSave.FileName=data.name;
+		console.log(fileSave);
+		var upload = document.getElementById("upload");
+		upload.onclick = fileSave.uploadQueue;
 		showElem($("#addFile"));
 	};
 	self.close=function(){

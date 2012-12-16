@@ -23,7 +23,6 @@ $.ajax({
 			 document.getElementById("Key"),
 			 document.getElementById("KeySign")],
 			 modelAddFile,
-			 null,
 			 null
 	);
 	FileSave.init();
