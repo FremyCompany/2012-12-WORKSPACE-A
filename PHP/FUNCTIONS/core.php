@@ -30,6 +30,31 @@
 		}
 	}
 	
+	define('_is_utf8_split',5000); 
+
+	function is_utf8($string) { // v1.01 
+		if (strlen($string) > _is_utf8_split) { 
+			// Based on: http://mobile-website.mobi/php-utf8-vs-iso-8859-1-59 
+			for ($i=0,$s=_is_utf8_split,$j=ceil(strlen($string)/_is_utf8_split);$i < $j;$i++,$s+=_is_utf8_split) { 
+				if (is_utf8(substr($string,$s,_is_utf8_split))) 
+					return true; 
+			} 
+			return false; 
+		} else { 
+			// From http://w3.org/International/questions/qa-forms-utf-8.html 
+			return preg_match('%^(?: 
+					[x09x0Ax0Dx20-x7E]            # ASCII 
+				| [xC2-xDF][x80-xBF]             # non-overlong 2-byte 
+				|  xE0[xA0-xBF][x80-xBF]        # excluding overlongs 
+				| [xE1-xECxEExEF][x80-xBF]{2}  # straight 3-byte 
+				|  xED[x80-x9F][x80-xBF]        # excluding surrogates 
+				|  xF0[x90-xBF][x80-xBF]{2}     # planes 1-3 
+				| [xF1-xF3][x80-xBF]{3}          # planes 4-15 
+				|  xF4[x80-x8F][x80-xBF]{2}     # plane 16 
+			)*$%xs', $string); 
+		} 
+	}
+	
 	function utf8_obj_encode($val) {
 		if(is_array($val)) { 
             // recurse on array elements
@@ -38,7 +63,7 @@
 				$newval[$key] = utf8_obj_encode($value); 
 			}
 			return $newval;
-        } else if (is_string($val)) { 
+        } else if (is_string($val) && !is_utf8($val)) { 
             // encode string values
             return utf8_encode($val); 
         } else {
