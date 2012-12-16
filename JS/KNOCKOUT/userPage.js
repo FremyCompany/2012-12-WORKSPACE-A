@@ -9,12 +9,12 @@
 };*/
 
 $.ajax({
-	url : "/TEMPLATE/HTML/addFile.html",
+	url : "/TEMPLATE/HTML/revokeAccount.html",
 	cache : false
 }).done(function(html) {
-	$("#addFile").html(html);
+	$("#revokeAccount").html(html);
 	var modelRevoke=new REVOKE();
-	ko.applyBindings(modelRevoke, document.getElementById('addFile'));
+	ko.applyBindings(modelRevoke, document.getElementById('revokeAccount'));
 });
 Secloud.getMyUserInfo(function(ok,rep){
 	if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
@@ -46,12 +46,12 @@ function USERPAGE(userInfo) {
 	}
 	else{
 		self.isFiles=ko.observable(true);
-	}
-	if(userInfo.id=="myId"){
+	}*/
+//	if(userInfo.id=="myId"){
 		self.userTitle("My profile");
 		self.titleFiles("My files");
 		self.myPage(true);
-	}
+	/*}
 	else{
 		self.userTitle("Profil of "+userInfo.Firstname);
 		self.titleFiles("Files shared with "+userInfo.Firstname);

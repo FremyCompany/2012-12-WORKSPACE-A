@@ -41,7 +41,7 @@ h1,h2,h3,h4				{ color: rgba(255, 255, 255, 0.9); }
 #loader,#uploadComplete { width:100%;text-align:center;position: relative;margin-bottom:10px;top: 10px;font-style:italic; }
 #loader { color: orange;}
 #uploadComplete { color : rgb(40,255,40); }
-
+.revokeAccount { width:400px;}
 
 .loadingIndicator {
     width: 0%;

@@ -9,7 +9,10 @@
 						<div class="header">To revoke your account please enter your password</div>
 						<div class="form">
 							<div class="contentform">
-								
+								<input style="width: 70%;"
+										type="password" name="password" placeholder="Password"
+										data-bind=" value : $root.inputPassword,valueUpdate: 'afterkeydown'"
+										autocomplete="off" />
 							</div>
 							<!-- ko if : $root.showMessage -->
 							<span class="label label-important"
@@ -19,7 +22,7 @@
 								style="text-align: center; margin-top: 15px; margin-bottom: 5px;">
 								<div class="btn btn-large btn-inverse btn-login"
 									data-bind="click : $root.close">Cancel</div>
-								<div data-bind="click : revoke" class="btn btn-large btn-inverse btn-login"
+								<div data-bind="click : $root.revoke" class="btn btn-large btn-inverse btn-login"
 									>Validate</div>
 
 							</div>

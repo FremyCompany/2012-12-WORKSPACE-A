@@ -10,9 +10,9 @@ $.ajax({
 	url : "/TEMPLATE/HTML/addFile.html",
 	cache : false
 }).done(function(html) {
-	$("#revokeAccount").html(html);
+	$("#addFile").html(html);
 	var modelAddFile=new ADDFILE();
-	ko.applyBindings(modelAddFile, document.getElementById('revokeAccount'));
+	ko.applyBindings(modelAddFile, document.getElementById('addFile'));
 });
 
 function HOME() {
