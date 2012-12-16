@@ -6,7 +6,7 @@
         echo "<div style='margin: 7px; border-left: 3px solid orange; padding-left: 5px; font-family: Consolas, monospace; font-size: 10pt;'>";
         
         $errfile=substr(strrchr($errfile, '\\'), 1);
-        if ($errfile=="debugger.php(56) : eval()'d code") {
+        if ($errfile=="tests.php(56) : eval()'d code") {
             $errfile="eval code";
         }
         
@@ -46,7 +46,7 @@
     $code = "";
     if (isset($_REQUEST['code'])) { $code = $_REQUEST['code']; }
     
-    echo ('<form action="debugger.php" method="POST"><textarea name="code" style="width: 450px; height: 200px;">'.htmlspecialchars($code).'</textarea><br/><input type="submit" /></form><br/>');
+    echo ('<form action="tests.php" method="POST"><textarea name="code" style="width: 450px; height: 200px;">'.htmlspecialchars($code).'</textarea><br/><input type="submit" /></form><br/>');
     echo ('<b>Starting code</b><br/>');
     if (isset($code) && $code != "") {
         $code=str_replace('\\\'','\'', str_replace("''","'",$code));
