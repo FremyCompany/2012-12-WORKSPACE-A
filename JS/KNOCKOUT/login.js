@@ -1,6 +1,12 @@
 var model = new LOGIN();
 ko.applyBindings(model, document.getElementById('welcome'));
 
+window.addEventListener('DOMContentLoaded', function() {
+	if(sCredentials && sCredentials.login) {
+		window.location.href="?page=home";
+	}
+});
+
 function LOGIN() {
 	var self=this;
 	//
@@ -35,7 +41,7 @@ function LOGIN() {
 			
 			// too see the result
 			watchCustomEvent('connectedUserChanged',function(){
-				if(sCredentials) {
+				if(sCredentials && sCredentials.login) {
 					window.location.href="?page=home";
 				}
 				else{
