@@ -49,8 +49,8 @@
 	}
 	
 	function js_encode($obj) {
-		return json_encode($obj);
-		//return json_encode(utf8_obj_encode($obj));
+		//return json_encode($obj);
+		return json_encode(utf8_obj_encode($obj));
 	}
 	
 	function hex2str($hexstr) {
