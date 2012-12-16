@@ -44,18 +44,30 @@ class File_Upload
 				mkdir(safeDir($this->path));
 			}
 		}else if($this->fileType=="Key" || $this->fileType=="KeySign"){
-			$this->path=$this->path."/".$this->user;
+			$this->path=$this->path."/KEYS";
+			if (!is_dir($this->path)) {
+				mkdir(safeDir($this->path));
+			}			
+			$this->path=$this->path."/".pathEncode($this->user);
 			if (!is_dir($this->path)) {
 				mkdir(safeDir($this->path));
 			}
 
 		}
-		$this->path=$this->path."/".$this->file;
+		$this->path=$this->path."/".pathEncode($this->file);
 		if (!is_dir($this->path)) {
 			mkdir(safeDir($this->path));
 		}
+		if($this->fileType=="File" || $this->fileType=="Key")
+		{
+			$this->path.="/.data";
+		}
+		if($this->fileType=="FileSign" || $this->fileType=="KeySign") 
+		{
+			$this->path.="/.sign";
+		}
 		file_put_contents(
-				safeDir($this->path."/".$this->fileName),
+				safeDir($this->path),
 				file_get_contents("php://input")
 		);
 
