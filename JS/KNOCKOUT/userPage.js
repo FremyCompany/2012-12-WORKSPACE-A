@@ -83,7 +83,9 @@ function USERPAGE(userInfo) {
 		self.userInfo=info;
 		self.modif(false);
 		self.textButton("Modif");
-		Secloud.setMyUserInfo(info);
+		Secloud.setMyUserInfo(info,function(ok,rep){
+			
+		});
 	};
 	self.logout=function(){
 		sCredentialsManager.logout();
