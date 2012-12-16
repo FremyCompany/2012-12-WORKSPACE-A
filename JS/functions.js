@@ -173,9 +173,14 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 			}, false);
 			upload.addEventListener("load", function (ev) {
 				console.log(xhr.responseText);
-				
 			}, false);
 			upload.addEventListener("error", function (ev) {console.log(ev);}, false);
+			//xhr.responseType="text";
+			xhr.onreadystatechange=function() {
+				if(xhr.readyState==4) {
+					console(xhr.responseText);
+				}
+			}
 			xhr.open(
 					"POST",
 					"PHP/upload.php"
