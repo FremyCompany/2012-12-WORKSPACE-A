@@ -753,7 +753,7 @@ KeyboardShortcuts = {
 })();
 
 // SHA512 Module
- (function () {
+(function () {
      var charSize = 8,
          Int_64 = function (a, b) {
              this.h = a;
