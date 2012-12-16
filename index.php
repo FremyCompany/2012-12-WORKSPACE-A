@@ -49,5 +49,7 @@ else{
 		<?php 	include($content);?>
 	</div>
 	<div style="display: none;" id="addFile"></div>
+	<div style="display: none;" id="revokeAccount"></div>
+	
 </body>
 </html>

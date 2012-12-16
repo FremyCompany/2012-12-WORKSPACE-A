@@ -7,6 +7,15 @@
 		"Phone" : "0474/023291",
 		"myFiles" : []
 };*/
+
+$.ajax({
+	url : "/TEMPLATE/HTML/addFile.html",
+	cache : false
+}).done(function(html) {
+	$("#addFile").html(html);
+	var modelRevoke=new REVOKE();
+	ko.applyBindings(modelRevoke, document.getElementById('addFile'));
+});
 Secloud.getMyUserInfo(function(ok,rep){
 	if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
 	alert(JSON.stringify(rep));
@@ -58,7 +67,7 @@ function USERPAGE(userInfo) {
 		}
 	};
 	self.revocation=function(){
-		alert("revocation");
+		showElem($("#revokeAccount"));
 	};
 	self.sendPublicKey=function(){
 		alert("send public key");

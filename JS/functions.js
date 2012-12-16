@@ -1,3 +1,14 @@
+function showElem(elem){
+	$("body").css('overflow','hidden');
+	elem.css('display','block');
+	elem.find('.content').css('position','relative').css('top','-1000px').animate({top: '0px'},200);
+}
+function hideElem(elem){
+	$("body").css('overflow','scroll');
+	elem.find('.content').css('position','relative').css('top','0px').animate({top: '-1000px'},500,function(){
+	});
+	elem.fadeOut(500);
+}
 function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 
 	var File = f[0],

@@ -10,33 +10,15 @@ $.ajax({
 	url : "/TEMPLATE/HTML/addFile.html",
 	cache : false
 }).done(function(html) {
-	$("#addFile").html(html);
+	$("#revokeAccount").html(html);
 	var modelAddFile=new ADDFILE();
-	ko.applyBindings(modelAddFile, document.getElementById('addFile'));
-	if (typeof FileReader == "undefined") alert ("Sorry your browser does not support the File API and this demo will not work for you");
-	FileSave = new FileSave(
-			[document.getElementById("File"),
-			 document.getElementById("Sign"),
-			 document.getElementById("Key"),
-			 document.getElementById("KeySign")],
-			 modelAddFile,
-			 document.getElementById("uploading_info"),
-			 null
-	);
-	FileSave.init();
-	var upload = document.getElementById("upload");
-	upload.onclick = FileSave.uploadQueue;
-
-
-
+	ko.applyBindings(modelAddFile, document.getElementById('revokeAccount'));
 });
 
 function HOME() {
 	var self=this;
 	self.users=users;
 	self.addFile=function(){
-		$("body").css('overflow','hidden');
-		$("#addFile").css('display','block');
-		$("#addFile").find('.content').css('position','relative').css('top','-1000px').animate({top: '0px'},200);
+		showElem($("#addFile"));
 	};
 }
