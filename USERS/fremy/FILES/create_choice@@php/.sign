@@ -1,9 +1,0 @@
-  <?php
-  
-include_once('ROOT/FUNCTIONS/initialize.php');
-include_once('TEMPLATE/tbs_class_php5.php');
-
-$createChoice = new clsTinyButStrong;
-$createChoice->LoadTemplate('TEMPLATE/create_choice.htm');
-$createChoice->Show();
-?>
