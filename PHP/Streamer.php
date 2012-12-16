@@ -3,13 +3,16 @@
 class File_Streamer
 {
 	private $fileName;
+	//File || Sign || Key || KeySign
+	private $fileType;
 	private $contentLength;
 	private $path;
 	
 	public function __construct()
 	{
-        if (array_key_exists('HTTP_X_FILE_NAME', $_SERVER) && array_key_exists('CONTENT_LENGTH', $_SERVER)) {
-            $this->fileName = $_SERVER['HTTP_X_FILE_NAME'];
+        if (array_key_exists('HTTP_X_FILE_TYPE',$_SERVER) && array_key_exists('HTTP_X_FILE_NAME', $_SERVER) && array_key_exists('CONTENT_LENGTH', $_SERVER)) {
+            $this->fileType =  $_SERVER['HTTP_X_FILE_TYPE'];
+        	$this->fileName = $_SERVER['HTTP_X_FILE_NAME'];
             $this->contentLength = $_SERVER['CONTENT_LENGTH'];
         } else throw new Exception("Error retrieving headers");
 	}
@@ -24,9 +27,9 @@ class File_Streamer
         if (!$this->contentLength > 0) {
             throw new Exception('No file uploaded!');
         }
-		
+		mkdir($this->path."/".$this->fileType);
         file_put_contents(
-            $this->path . $this->fileName,
+            $this->path."/".$this->fileType."/".$this->fileName,
             file_get_contents("php://input")
         );
         

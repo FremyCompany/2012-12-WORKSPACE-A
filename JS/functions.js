@@ -11,16 +11,31 @@ function FileAPI  (f,addFileVModel,uploadInfo) {
 
 
 	this.init = function () {
-		file.onchange = this.addFiles;
-		Sign.onchange = this.addFiles;
-		Key.onchange = this.addFiles;
-		KeySign.onchange = this.addFiles;
+		file.name="File";
+		Sign.name="Signature";
+		Key.name="Key";
+		KeySign.name="KeySign";
+		file.onchange = this.addFile;
+		Sign.onchange = this.addSign;
+		Key.onchange = this.addKey;
+		KeySign.onchange = this.addKeySign;
 
 	};
 
-	this.addFiles = function () {
-		addFileListItems(this.files);
+	this.addFile = function () {
+		addFileListItems(this.files,file);
 	};
+	this.addSign = function () {
+		addFileListItems(this.files,Sign);
+	};
+	this.addKey = function () {
+
+		addFileListItems(this.files,Key);
+	};
+	this.addKeySign = function () {
+		addFileListItems(this.files,KeySign);
+	};
+
 
 	this.uploadQueue = function (ev) {
 		ev.preventDefault();
@@ -42,7 +57,7 @@ function FileAPI  (f,addFileVModel,uploadInfo) {
 		while (fileQueue.length > 0) {
 			var item = fileQueue.pop();
 			if (item.file.size < 10485760) {
-				uploadFile(item.file);
+				uploadFile(item.file,item.item);
 				showComplete=true;
 			} else {
 				p.textContent = "One file is to large (max : 10 mo) ";
@@ -60,10 +75,11 @@ function FileAPI  (f,addFileVModel,uploadInfo) {
 			UploadInfo.appendChild(p);
 		}
 	};
-	var addFileListItems = function (files) {
+	var addFileListItems = function (files,item) {
 		for (var i = 0; i < files.length; i++) {
 			var fr = new FileReader();
 			fr.file = files[i];
+			fr.item = item;
 			fr.onloadend = showFileInList;
 			fr.readAsDataURL(files[i]);
 		}
@@ -71,21 +87,25 @@ function FileAPI  (f,addFileVModel,uploadInfo) {
 
 	var showFileInList = function (ev) {
 		var file = ev.target.file;
+		var item = ev.target.item;
 		if (file) {
 			fileQueue.push({
 				file : file,
+				item : item
 			});
 		}
 	};
 
 
-	var uploadFile = function (file) {
-		if (file) {
+	var uploadFile = function (file,item) {
+		if (file && item) {
 			var xhr = new XMLHttpRequest(),
 			upload = xhr.upload;
 			upload.addEventListener("progress", function (ev) {
+				//...
 			}, false);
 			upload.addEventListener("load", function (ev) {
+				//...
 			}, false);
 			upload.addEventListener("error", function (ev) {console.log(ev);}, false);
 			xhr.open(
@@ -95,6 +115,7 @@ function FileAPI  (f,addFileVModel,uploadInfo) {
 			xhr.setRequestHeader("Cache-Control", "no-cache");
 			xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 			xhr.setRequestHeader("X-File-Name", file.name);
+			xhr.setRequestHeader("X-File-type", item.name);
 			xhr.send(file);
 		}
 	};
