@@ -10,8 +10,8 @@ function safeDir($dir) {
 //
 function pathEncode($str) {
 	if($str=="") cThrow(ERR_ILLOGICAL);
-	return str_replace(".","||",		// we can't leave . because it leads to false file extensions
-			str_replace("%","|",			// we can't leave % because it causes issues with URLs
+	return str_replace(".","@@",		// we can't leave . because it leads to false file extensions
+			str_replace("%","@",			// we can't leave % because it causes issues with URLs
 					rawurlencode($str)			// we don't want special chars
 			)
 	);
@@ -23,8 +23,8 @@ function pathEncode($str) {
 function pathDecode($str) {
 	if($str=="") cThrow(ERR_ILLOGICAL);
 	return rawurldecode(				// we revert special char encoding
-			str_replace("|","%",			// we revert % encoding
-					str_replace("||",".",$str)	// we revert . encoding
+			str_replace("@","%",			// we revert % encoding
+					str_replace("@@",".",$str)	// we revert . encoding
 			)
 	);
 }
