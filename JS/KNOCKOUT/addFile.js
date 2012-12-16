@@ -1,4 +1,4 @@
-function ADDFILE(){
+function ADDFILE(isNew,fileName){
 	self=this;
 	self.showLoadingFile=ko.observable(false);
 	self.closeAdd=function(){
@@ -7,6 +7,7 @@ function ADDFILE(){
 	self.newFile=function(){
 		alert("save");
 	};
+	self.isNew=isNew;
 	self.showMessage=ko.observable(false);
 	self.showSucces=ko.observable(false);
 	self.loadingFile=function(){

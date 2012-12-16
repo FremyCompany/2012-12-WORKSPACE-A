@@ -11,8 +11,22 @@ $.ajax({
 	cache : false
 }).done(function(html) {
 	$("#addFile").html(html);
-	var modelAddFile=new ADDFILE();
+	var modelAddFile=new ADDFILE(true);
 	ko.applyBindings(modelAddFile, document.getElementById('addFile'));
+	if (typeof FileReader == "undefined") alert ("Sorry your browser does not support the File API and this demo will not work for you");
+	FileSave = new FileSave(
+			[document.getElementById("File"),
+			 document.getElementById("Sign"),
+			 document.getElementById("Key"),
+			 document.getElementById("KeySign")],
+			 modelAddFile,
+			 document.getElementById("uploading_info"),
+			 null,
+			 null
+	);
+	FileSave.init();
+	var upload = document.getElementById("upload");
+	upload.onclick = FileSave.uploadQueue;
 });
 
 function HOME() {

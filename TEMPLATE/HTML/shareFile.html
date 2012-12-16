@@ -1,10 +1,23 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="dialog">
+	<div class="outer">
+		<div class="background" data-bind="click : close"></div>
+		<div class="middle">
+			<div class="content">
+				<div class="mainDialog">
+					<div class="shareFile aspect">
+						<div class="header" data-bind="text : $root.txt"></div>
+						<div class="form" style="margin-top:10px;">
+							<div data-bind="foreach : myFiles">
+								<div class="myFileTochoose" data-bind="click : $root.selectFile">
+									<h4 style="color: rgba(255, 255, 255, 0.9);">
+										<span data-bind="text: $data.name"></span>
+									</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

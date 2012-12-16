@@ -23,7 +23,19 @@ if(user==null){
 else{
 	Secloud.getUserInfo(user,function(ok,rep){
 		if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }	
-			model.init(rep,false);
+		$.ajax({
+			url : "/TEMPLATE/HTML/shareFile.html",
+			cache : false
+		}).done(function(html) {
+			Secloud.getMyFiles(function(ok,files){
+				if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
+				$("#myFiles").html(html);
+				rep.login=user;
+				model.init(rep,false);
+				var modelMyFiles=new FILE_TO_SHARE(model,files);
+				ko.applyBindings(modelMyFiles, document.getElementById('myFiles'));
+			});
+		});
 	});
 }
 
@@ -90,7 +102,7 @@ function USERPAGE() {
 		showElem($("#revokeAccount"));
 	};
 	self.shareFiles=function(){
-		alert("share");
+		showElem($("#myFiles"));
 	};
 	self.saveModif=function(){
 		alert("save modif");

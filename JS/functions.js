@@ -1,3 +1,4 @@
+
 function showElem(elem){
 	$("body").css('overflow','hidden');
 	elem.css('display','block');
@@ -12,7 +13,7 @@ function hideElem(elem){
 function getURLParameter(name) {
     return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null;
 }
-function FileSave  (f,addFileVModel,uploadInfo,user_info) {
+function FileSave  (f,addFileVModel,uploadInfo,user_info,filename) {
 
 	var File = f[0],
 	Sign = f[1],
@@ -23,21 +24,28 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 	showComplete=true,
 	//user with whom we share
 	User_login=user_info,
-	fileName=null,
+	FileName=filename,
 	fileQueue = new Array();
 
 
 	this.init = function () {
 		//type of the file
-		File.name="File";
-		Sign.name="FileSign";
-		Key.name="Key";
-		KeySign.name="KeySign";
-		File.onchange = this.addFile;
-		Sign.onchange = this.addSign;
-		Key.onchange = this.addKey;
-		KeySign.onchange = this.addKeySign;
-
+		if(File!=null){
+			File.name="File";
+			File.onchange = this.addFile;
+		}
+		if(Sign!=null){
+			Sign.name="FileSign";
+			Sign.onchange = this.addSign;
+		}
+		if(Key!=null){
+			Key.name="Key";
+			Key.onchange = this.addKey;
+		}
+		if(KeySign!=null){
+			KeySign.name="KeySign";
+			KeySign.onchange = this.addKeySign;
+		}
 	};
 
 	this.addFile = function () {
@@ -49,12 +57,13 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 		Sign.has=true;
 	};
 	this.addKey = function () {
-
+		alert("add key");
 		addFileListItems(this.files,Key);
 		Key.has=true;
 	};
 	this.addKeySign = function () {
 		addFileListItems(this.files,KeySign);
+		alert("add KeySign")
 		KeySign.has=true;
 	};
 	this.checkHasAll=function(){
@@ -126,7 +135,7 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 			fr.file = files[i];
 			fr.item = item;
 			if(item.name=="File"){
-				fileName=fr.file.name;
+				FileName=fr.file.name;
 			}
 			fr.onloadend = showFileInList;
 			fr.readAsDataURL(files[i]);
@@ -176,11 +185,11 @@ function FileSave  (f,addFileVModel,uploadInfo,user_info) {
 			xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
 			xhr.setRequestHeader("X-File-Name", file.name);
 			xhr.setRequestHeader("X-File-type", item.name);
-			xhr.setRequestHeader("X-File",fileName);
+			xhr.setRequestHeader("X-File",FileName);
 			if(User_login!=null){
-				xhr.setRequestHeader("X_File_user",User_login);
+				xhr.setRequestHeader("X_File_user",User_login+"_2");
 			}
-			alert(file.name+" "+item.name+" "+fileName);
+			//alert(file.name+" "+item.name+" "+FileName);
 			xhr.send(file);
 		}
 	};

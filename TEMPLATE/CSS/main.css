@@ -31,39 +31,22 @@ h1,h2,h3,h4				{ color: rgba(255, 255, 255, 0.9); }
 #home .person:hover 	{ -moz-box-shadow: 0 0 2px 2px rgb(120,120,120); -webkit-box-shadow: 0 0 2px 2px rgb(120,120,120); box-shadow: 0 0 2px 2px rgb(120,120,120); }
 #home .person:active 	{ background-color:rgba(200,200,200,0.8); }
 #home .person:focus 	{ background-color:rgba(200,200,200,0.8); }
+
 #userPage .userInfo 	{ color:rgba(240,240,240,0.9); }
-#userPage .files 		{ color: rgba(225, 225, 225, 0.9);width:100%;font-size: 150%; text-align: center; margin: auto;}
+#userPage .files 		{ color: rgba(225, 225, 225, 0.9);width:100%;font-size: 150%; margin: auto;}
 #userPage .userTitle  	{ margin-bottom: 50px;text-align:center; }
 #userPage .modifMyInfo { width:100%;}
 #userPage .btn-certificate { position:relative;left:16px;}
-#userPage .file			{ text-decoration:none;cursor:pointer;display: inline-block;vertical-align:top; width: 40%; padding-top:10px;padding-bottom:10px; border-radius: 2px; margin-left: 10px; margin-right: 10px; background-color: rgba(70, 70, 70, 0.9); }
+#userPage .file			{ text-decoration:none;cursor:pointer;display: inline-block;vertical-align:top; width: 47%; padding-top:10px;padding-bottom:10px; border-radius: 2px; margin-left: 8px; margin-right: 8px;margin-bottom:18px;text-align:center; background-color: rgba(70, 70, 70, 0.9); }
 #userPage .file:hover	{ background-color: rgba(100, 100, 100, 0.9); }
-#addFile .background,#revokeAccount .background { position:fixed;top:0px;left:0px;width:100%;height:100%;background-color:rgba(200,200,200,0.8); }
+
+.shareFile				{ width:450px;max-height:500px;overflow:scroll;}
+.myFileTochoose 		{ text-decoration:none;cursor:pointer; width: 80%;margin:auto; padding-top:10px;padding-bottom:10px; border-radius: 2px;margin-bottom:10px;text-align:center; background-color: rgba(60, 60, 60, 0.9); }
+.myFileTochoose:hover	{ background-color: rgba(70, 70, 70, 0.9); }
+
+#addFile .background,#revokeAccount .background,#myFiles .background { position:fixed;top:0px;left:0px;width:100%;height:100%;background-color:rgba(200,200,200,0.8); }
 #addFile .addFileDialog { width:550px;min-height:200px; }
 #loader,#uploadComplete { width:100%;text-align:center;position: relative;margin-bottom:10px;top: 10px;font-style:italic; }
 #loader { color: orange;}
 #uploadComplete { color : rgb(40,255,40); }
 .revokeAccount { width:500px;}
-
-.loadingIndicator {
-    width: 0%;
-    height: 2px;
-    background-color: orange;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-
-.imagePreview {
-    width: 300px;
-    padding: 10px;
-    border: solid 1px #ccc;
-    position: absolute;
-    background-color: white;
-}
-
-    .imagePreview img {
-        max-width: 100%;
-        display: block;
-        margin: 0 auto;
-    }

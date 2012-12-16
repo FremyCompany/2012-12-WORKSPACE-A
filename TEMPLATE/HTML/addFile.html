@@ -10,12 +10,14 @@
 						<div class="header">Add a new file</div>
 						<div class="form">
 							<div class="contentform">
+								<!-- ko if: $root.isNew -->
 								<h5 style="color: rgba(255, 255, 255, 0.9);">File to upload
 									(encrypted or it will be deleted)</h5>
 								<input id="File" type=file />
 								<h5 style="color: rgba(255, 255, 255, 0.9);">The file
 									signature</h5>
 								<input id="Sign" type="file"/>
+								<!-- /ko -->
 								<h5 style="color: rgba(255, 255, 255, 0.9);">The encryption
 									key, encoded for you</h5>
 								<input id="Key" type=file />
@@ -30,7 +32,7 @@
 							<div
 								style="text-align: center; margin-top: 15px; margin-bottom: 5px;">
 								<div class="btn btn-large btn-inverse btn-login"
-									data-bind="click : $root.closeAdd">Cancel</div>
+									data-bind="click : $root.closeAdd">Close</div>
 								<div id="upload" class="btn btn-large btn-inverse btn-login"
 									>Validate</div>
 
