@@ -112,12 +112,14 @@ $jsonService = "Secloud"; class Secloud {
 		}
 
 		// create the user folder
-		if($pass)
+		if(checkProof($_SESSION['login'], session_id(), $pass)) {
 			deleteFile(USERS_FOLDER.$_SESSION['login']);
-
+			return true;
+		}
+		else {
+			return false;
+		}
 		// return ok
-		return true;
-
 	}
 
 
@@ -248,11 +250,10 @@ $jsonService = "Secloud"; class Secloud {
 		if(!isConnected()) {
 			cThrow(ERR_RIGHTS);
 		}
-		$user = Secloud::
-
+		
 		// convert argument into valid data
-		$login = pathEncode($login);
-
+		$login=pathEncode($_SESSION['login']);
+		addLog($login);
 		// check that the user exists
 		if(!is_dir(USERS_FOLDER.$login)) {
 			cThrow(ERR_NOTFOUND);
@@ -262,7 +263,15 @@ $jsonService = "Secloud"; class Secloud {
 		foreach($data as $key=>$value) {
 			file_put_contents(USERS_FOLDER.$login.'/user/'.pathEncode($key).'.txt',$value);
 		}
-
+		$_SESSION['user'] = array(
+					"login"  => pathDecode($_SESSION['login']),
+					"firstName" => file_get_contents(USERS_FOLDER.$login.'/user/firstName.txt'),
+					"lastName" => file_get_contents(USERS_FOLDER.$login.'/user/lastName.txt'),
+					"mail"  => file_get_contents(USERS_FOLDER.$login.'/user/mail.txt'),
+					"phone"  => file_get_contents(USERS_FOLDER.$login.'/user/phone.txt'),
+					"address" => file_get_contents(USERS_FOLDER.$login.'/user/address.txt'),
+					"idNumber" => file_get_contents(USERS_FOLDER.$login.'/user/idNumber.txt'),
+			);
 		// return ok
 		return true;
 

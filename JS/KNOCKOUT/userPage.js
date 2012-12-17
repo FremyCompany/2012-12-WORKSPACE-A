@@ -132,7 +132,6 @@ function USERPAGE(modelDownload) {
 		self.modif(false);
 		self.textButton("Modif my profile");
 		Secloud.setMyUserInfo(info,function(ok,rep){
-
 		});
 	};
 	self.logout=function(){

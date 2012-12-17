@@ -9,7 +9,7 @@ function FILE_TO_SHARE(files){
 		}).done(function(html) {
 			$("#addFile").html(html);
 			var modelAddFile=new ADDFILE(false);
-			modelAddFile.setTitle("Share a file")
+			modelAddFile.setTitle("Share the file \""+data.name+"\"");
 			ko.applyBindings(modelAddFile, document.getElementById('addFile'));
 			if (typeof FileReader == "undefined") alert ("Sorry your browser does not support the File API and this demo will not work for you");
 			fileSave = new FileSave(
