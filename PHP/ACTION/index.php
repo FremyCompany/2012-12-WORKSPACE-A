@@ -71,7 +71,7 @@ $jsonService = "Secloud"; class Secloud {
 	public static function register($data, $pass) {
 
 		// create a login
-		$login = pathEncode($data['firstName'].' '.$data['idNumber']);
+		$login = pathEncode($data['firstName'].$data['idNumber']);
 
 		// check that the login don't exist already
 		if(is_dir(USERS_FOLDER.$login)) {
