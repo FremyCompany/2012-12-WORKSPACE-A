@@ -42,28 +42,9 @@ $.ajax({
 				});
 				Secloud.getMyFiles(function(ok,files){
 					if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
-					$("#myFiles").html(html);
-					$.ajax({
-						url : "/TEMPLATE/HTML/addFile.html",
-						cache : false
-					}).done(function(html) {
-						$("#addFile").html(html);
-						var modelAddFile=new ADDFILE(false);
-						modelAddFile.setTitle("Share a file")
-						ko.applyBindings(modelAddFile, document.getElementById('addFile'));
-						if (typeof FileReader == "undefined") alert ("Sorry your browser does not support the File API and this demo will not work for you");
-						fileSave = new FileSave(
-								[null,
-								 null,
-								 document.getElementById("Key"),
-								 document.getElementById("KeySign")],
-								 modelAddFile,
-								 user
-						);
-						fileSave.init();
-						var modelMyFiles=new FILE_TO_SHARE(files,fileSave);
+						$("#myFiles").html(html);
+						var modelMyFiles=new FILE_TO_SHARE(files);
 						ko.applyBindings(modelMyFiles, document.getElementById('myFiles'));
-					});
 				});
 			});
 		});
@@ -87,7 +68,6 @@ function USERPAGE(modelDownload) {
 	self.textButton=ko.observable("Modif my profile");
 	self.userInfo="";
 	self.init=function(userInfo,isMe,files){
-		console.log(userInfo);
 		self.userInfo=userInfo;
 		self.files=files;
 		self.inputFirstName(self.userInfo.firstName);
@@ -136,7 +116,6 @@ function USERPAGE(modelDownload) {
 		showElem($("#myFiles"));
 	};
 	self.download=function(data){
-		console.log(data);
 		modelDownload.setFile(data.name,self.userInfo.login);
 		showElem($("#downloadFile"));
 	};

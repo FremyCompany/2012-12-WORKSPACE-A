@@ -39,12 +39,12 @@ class File_Upload
 			throw new Exception('No file uploaded!');
 		}
 		if($this->fileType=="File" || $this->fileType=="FileSign"){
-			$this->path=$this->path."/FILES";
+			$this->path=$this->path."FILES";
 			if (!is_dir($this->path)) {
 				mkdir(safeDir($this->path));
 			}
 		}else if($this->fileType=="Key" || $this->fileType=="KeySign"){
-			$this->path=$this->path."/KEYS";
+			$this->path=$this->path."KEYS";
 			if (!is_dir($this->path)) {
 				mkdir(safeDir($this->path));
 			}			
@@ -72,13 +72,15 @@ class File_Upload
 		);
 		if(file_exists($this->path."/.data") && (file_exists($this->path."/.sign"))){
 			//if(checkFileSign($this->path,$_SERVER['DOCUMENT_ROOT']."/USERS/".$_SESSION['login']."/public.key")){
-				return 2;
+				return 1;
+			/*}
+			else{
+			 	deleteFile($this->path);*/
+			//	return 0;
 			//}
-			/*else{
-			 	deleteFile($this->path);
-				return 0;
-			 }*/
-		}else{
+		}
+		else
+		{
 			return -1;
 		}
 	}

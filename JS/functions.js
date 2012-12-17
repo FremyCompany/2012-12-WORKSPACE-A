@@ -20,12 +20,17 @@ function FileSave  (f,addFileVModel,user_info) {
 	Key	= f[2],
 	KeySign = f[3],
 	AddFileVModel=addFileVModel,
+	numFileComplete=0;
 	showComplete=true,
 	//user with whom we share
 	User_login=user_info,
 	fileQueue = new Array();
 	this.FileName=null;
-
+	if(User_login!=null)
+		numFileComplete=2;
+	var self=this;
+	this.hasClicked=false;
+	
 	this.init = function () {
 		//type of the file
 		if(File!=null){
@@ -62,6 +67,15 @@ function FileSave  (f,addFileVModel,user_info) {
 		addFileListItems(this.files,KeySign);
 		KeySign.has=true;
 	};
+	this.addFileComplete=function(){
+		numFileComplete++;
+		if(numFileComplete==4){
+			AddFileVModel.hideLoading();
+			if(showComplete){
+				AddFileVModel.showComplete();
+			}
+		}
+	}
 	this.checkHasAll=function(){
 		if(User_login==null)
 		{
@@ -81,12 +95,16 @@ function FileSave  (f,addFileVModel,user_info) {
 	};
 
 	this.uploadQueue = function (ev) {
-		if(this.checkHasAll())
+		if(this.checkHasAll() && !this.hasClicked)
 		{
+			this.hasClicked=true;
 			console.log(AddFileVModel);
 			ev.preventDefault();
 			AddFileVModel.loadingFile();
 			AddFileVModel.showUploading();
+			if(fileQueue.length==0){
+				
+			}
 			while (fileQueue.length > 0) {
 				var item = fileQueue.pop();
 				if (item.file.size < 10485760) {
@@ -97,12 +115,8 @@ function FileSave  (f,addFileVModel,user_info) {
 					showComplete=false;
 				}
 			}
-			AddFileVModel.loadingFile();
-			if(showComplete){
-				AddFileVModel.showComplete();
-			}
 		}
-		else
+		else if(!this.hasClicked)
 		{
 			AddFileVModel.showFail("Give all the files !");
 		}
@@ -157,9 +171,14 @@ function FileSave  (f,addFileVModel,user_info) {
 			//xhr.responseType="text";
 			xhr.onreadystatechange=function() {
 				if(xhr.readyState==4) {
+					console.log(xhr.responseText);
 					if(xhr.responseText=='0')
 					{
 						AddFileVModel.showFail("The signature one the key or the file doesn't correspond !");
+						AddFileVModel.hideLoading();
+					}
+					else{
+						self.addFileComplete();
 					}
 				}
 			};
@@ -173,7 +192,7 @@ function FileSave  (f,addFileVModel,user_info) {
 			xhr.setRequestHeader("X-File-type", item.name);
 			xhr.setRequestHeader("X-File",this.FileName);
 			if(User_login!=null){
-				xhr.setRequestHeader("X_File_user",User_login+"_2");
+				xhr.setRequestHeader("X_File_user",User_login);
 			}
 			xhr.send(file);
 		}

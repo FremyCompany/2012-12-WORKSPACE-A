@@ -15,10 +15,10 @@ function ADDFILE(isNew){
 	self.showMessage=ko.observable(false);
 	self.showSucces=ko.observable(false);
 	self.loadingFile=function(){
-		if(this.showLoadingFile()==true)
-			this.showLoadingFile(false);
-		else
-			this.showLoadingFile(true);
+		this.showLoadingFile(true);
+	};
+	self.hideLoading=function(){
+		this.showLoadingFile(false);
 	};
 	self.setTitle=function(txt){
 		self.text(txt);

@@ -1,5 +1,13 @@
 <?php
 
+function addLog($str)
+{
+	$stream = fopen($_SERVER['DOCUMENT_ROOT']."/log.txt","a");
+	$str = date("d/m/Y - H:i:s")." - ".$str."\n";
+	fwrite($stream,$str);
+	fclose($stream);
+}
+
 // Make sure a path is valid
 function safeDir($dir) {
 	return str_replace("..","",str_replace("...","",$dir));
