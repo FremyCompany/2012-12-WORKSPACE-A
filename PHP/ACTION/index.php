@@ -116,8 +116,7 @@ $jsonService = "Secloud"; class Secloud {
 			deleteFile(USERS_FOLDER.$_SESSION['login']);
 			session_destroy();
 			return true;
-		}
-		else {
+		} else {
 			return false;
 		}
 		// return ok

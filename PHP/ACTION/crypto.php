@@ -80,7 +80,7 @@ function checkFileSign($fileDir, $pubkeyFilePath) {
     $sign = file_get_contents($fileDir.'/.sign');
     
     // fetch the public key
-    $fp = fopen($pubkeyFilePath,"r+"); $cert = fread($fp, 8192); fclose($fp);
+    $fp = file_get_contents($pubkeyFilePath); //fopen($pubkeyFilePath,"r+"); $cert = fread($fp, 8192); fclose($fp);
     $pubkeyid = openssl_get_publickey($cert);
 
     // state whether signature is okay or not

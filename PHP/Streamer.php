@@ -71,13 +71,13 @@ class File_Upload
 				file_get_contents("php://input")
 		);
 		if(file_exists($this->path."/.data") && (file_exists($this->path."/.sign"))){
-			//if(checkFileSign($this->path,$_SERVER['DOCUMENT_ROOT']."/USERS/".$_SESSION['login']."/public.key")){
+			if(checkFileSign($this->path,$_SERVER['DOCUMENT_ROOT']."/USERS/".$_SESSION['login']."/public.key")){
 				return 1;
-			/*}
+			}
 			else{
-			 	deleteFile($this->path);*/
-			//	return 0;
-			//}
+			 	deleteFile($this->path);
+				return 0;
+			}
 		}
 		else
 		{
