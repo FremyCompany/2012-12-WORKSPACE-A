@@ -41,7 +41,7 @@ function setPasswordOf($login, $pass) {
 	$login = pathEncode(pathDecode($login));
 	
 	// return data
-	return decryptPassword(file_put_contents(USERS_FOLDER.$login.'/pass.hash',encryptPassword($pass)));
+	file_put_contents(USERS_FOLDER.$login.'/pass.hash',encryptPassword($pass));
 	
 }
 
