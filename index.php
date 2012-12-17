@@ -44,11 +44,11 @@ else{
 	<script src="PHP/ACTION/" type="text/javascript"></script>
 	<script src="JS/functions.js" type="text/javascript"></script>
 	<script src="JS/KNOCKOUT/addFile.js" type="text/javascript"></script>
-	
 
 	<div id="whole">
 		<?php 	include($content);?>
 	</div>
+	<div style="display: none;" id="downloadFile"></div>
 	<div style="display: none;" id="myFiles"></div>
 	<div style="display: none;" id="addFile"></div>
 	<div style="display: none;" id="revokeAccount"></div>

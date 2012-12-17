@@ -24,7 +24,6 @@ function FileSave  (f,addFileVModel,user_info) {
 	//user with whom we share
 	User_login=user_info,
 	fileQueue = new Array();
-;
 	this.FileName=null;
 
 	this.init = function () {

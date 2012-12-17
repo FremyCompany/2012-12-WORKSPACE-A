@@ -1,5 +1,5 @@
 function ADDFILE(isNew){
-	self=this;
+	var self=this;
 	self.showUpload=ko.observable(false);
 	self.showError=ko.observable(false);
 	self.showSuccess=ko.observable(false);

@@ -1,7 +1,16 @@
-var model = new USERPAGE();
+var user=getURLParameter("user");
+var modelDownload=null;
+$.ajax({
+	url : "/TEMPLATE/HTML/downloadFiles.html",
+	cache : false
+}).done(function(html) {
+	$("#downloadFile").html(html);
+	modelDownload=new DOWNLOADFILES();
+	ko.applyBindings(modelDownload, document.getElementById('downloadFile'));
+});
+var model = new USERPAGE(modelDownload);
 ko.applyBindings(model, document.getElementById('home'));
 
-var user=getURLParameter("user");
 if(user==null){
 	//myPage
 	$.ajax({
@@ -27,6 +36,11 @@ else{
 			url : "/TEMPLATE/HTML/shareFile.html",
 			cache : false
 		}).done(function(html) {
+			Secloud.getFilesFor(user,function(ok,myfiles){
+				if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
+				rep.login=user;
+				model.init(rep,false,myfiles);
+			});
 			Secloud.getMyFiles(function(ok,files){
 				if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
 				$("#myFiles").html(html);
@@ -35,8 +49,6 @@ else{
 					cache : false
 				}).done(function(html) {
 					$("#addFile").html(html);
-					rep.login=user;
-					model.init(rep,false);
 					var modelAddFile=new ADDFILE(false);
 					modelAddFile.setTitle("Share a file")
 					ko.applyBindings(modelAddFile, document.getElementById('addFile'));
@@ -58,9 +70,9 @@ else{
 	});
 }
 
-function USERPAGE() {
+function USERPAGE(modelDownload) {
 	var self=this;
-	
+	self.modelDownload=modelDownload;
 	
 	self.loading=ko.observable(true);
 	self.inputFirstName=ko.observable("");
@@ -123,6 +135,10 @@ function USERPAGE() {
 	self.shareFiles=function(){
 		showElem($("#myFiles"));
 	};
+	self.download=function(data){
+		console.log(data);
+		showElem($("#downloadFile"));
+	}
 	self.saveModif=function(){
 		alert("save modif");
 		var info={
