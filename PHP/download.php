@@ -4,7 +4,6 @@
 	
 	// INCLUDES
 	require_once($_SERVER['DOCUMENT_ROOT']."/PHP/init.php");
-	require_once('./ACTION/crypto.php');
 	
 	// you should be connected to initiate a download
 	if(!isConnected()) exit;

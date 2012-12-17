@@ -3,8 +3,6 @@
 // INCLUDES
 require_once($_SERVER['DOCUMENT_ROOT']."/PHP/init.php");
 
-require_once('./crypto.php');
-
 // SERVICE
 $jsonService = "Secloud"; class Secloud {
 

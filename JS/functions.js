@@ -113,12 +113,12 @@ function FileSave  (f,addFileVModel,user_info) {
 			fr.file = files[i];
 			fr.item = item;
 			if(item.name=="File"){
-				FileName=fr.file.name;
+				this.FileName=fr.file.name;
 			}
 			fr.onloadend = showFileInList;
 			fr.readAsDataURL(files[i]);
 		}
-	};
+	}.bind(this);
 
 	var showFileInList = function (ev) {
 		var file = ev.target.file;

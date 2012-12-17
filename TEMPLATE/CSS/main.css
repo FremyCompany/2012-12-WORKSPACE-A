@@ -4,7 +4,7 @@
 .middle					{ display: table-cell; vertical-align: middle; width: 100%; }
 body 					{padding-top:100px;}
 #whole 					{ position:relative;height: 100%;width:100%;}
-#general-background 	{height:100%;width:100%;position:fixed;top:0px;left:0px;}
+#general-background 	{height:100%;width:100%;position:fixed;top:0px;left:0px;min-height:600px;min-width:1200px;}
 h1,h2,h4				{ color: rgba(255, 255, 255, 0.9); }
 .dialog					{ width: 100%; height: 100%;position:fixed;top:0px;left:0px; }
 .dialog .background		{ position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 70; }
@@ -25,7 +25,7 @@ h1,h2,h4				{ color: rgba(255, 255, 255, 0.9); }
 #welcome .signup				{ width:600px;min-height:230px; }
 #welcome .signin .dialog input 	{ margin:auto;margin-top:20px;width:60%;}
 
-#home .content,#userPage .content { padding-left:30px;padding-right:30px;width:60%;background-color:rgba(40,40,40,0.9);margin:auto;padding-top:50px;padding-bottom:50px;margin-bottom:100px; -moz-box-shadow: 0 0 25px 10px #292929; -webkit-box-shadow: 0 0 25px 10px #292929; box-shadow: 0 0 25px 10px #292929; border-radius: 2px;}
+#home .content,#userPage .content { padding-left:30px;padding-right:30px;width:800px;background-color:rgba(40,40,40,0.9);margin:auto;padding-top:50px;padding-bottom:50px;margin-bottom:100px; -moz-box-shadow: 0 0 25px 10px #292929; -webkit-box-shadow: 0 0 25px 10px #292929; box-shadow: 0 0 25px 10px #292929; border-radius: 2px;}
 #home .title_list,#userPage .title_list {color:rgba(245,245,245,0.9);margin-bottom:30px;margin-top:40px;font-style:italic;margin-left:10px;}
 #home .person 			{ display: inline-block;vertical-align:top; text-decoration: none; padding:10px;width:43%;margin-right:10px;margin-left:10px;margin-bottom:10px;border-radius:2px;background-color:rgba(80,80,80,0.9);cursor:pointer;color:rgba(230,230,230,0.9); position: relative; }
 #home .person:hover 	{ background-color:rgba(110,110,110,0.9); }
