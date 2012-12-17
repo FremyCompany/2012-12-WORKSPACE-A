@@ -32,10 +32,12 @@ $.ajax({
 
 function HOME() {
 	var self=this;
-	self.users=[];
+	self.users=ko.observableArray();
 	self.setUser=function(users){
-		self.users=users;
-	}
+		for(var i=0;i<users.length;i++){
+			self.users.push(users[i]);
+		}
+	};
 	self.addFile=function(){
 		showElem($("#addFile"));
 	};

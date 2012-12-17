@@ -156,7 +156,7 @@ $jsonService = "Secloud"; class Secloud {
 				if(file_exists($dirpath.$file.'/public.key')) {
 
 					// append the file to the results
-					$result[] = array(pathDecode($file));
+					$result[] = pathDecode($file);
 					 
 				}
 

@@ -8,16 +8,16 @@
 						<div class="header">Download file</div>
 						<div class="form" style="margin-top: 10px;text-align:center;">
 							<div>
-								<a class="linkFile" data-bind="attr : { href : ''}">Encrypted file</a>
+								<a class="linkFile" data-bind="click : $root.downloadFile">Encrypted file</a>
 							</div>
 							<div>
-								<a class="linkFile" data-bind="attr : { href : ''}">File signature</a>
+								<a class="linkFile" data-bind="click : $root.downloadFileSign">File signature</a>
 							</div>
 							<div>
-								<a class="linkFile" data-bind="attr : { href : ''}">Encrypted key</a>
+								<a class="linkFile" data-bind="click : $root.downloadKey">Encrypted key</a>
 							</div>
 							<div>
-								<a class="linkFile" data-bind="attr : { href : ''}">Key signature</a>
+								<a class="linkFile" data-bind="click : $root.downloadKeySign">Key signature</a>
 							</div>
 						</div>
 					</div>

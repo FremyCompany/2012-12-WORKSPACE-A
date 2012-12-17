@@ -7,14 +7,14 @@
 				class="btn btn-inverse">Add a file</div>
 		</div>
 		<h3 class="title_list">List of users</h3>
-		<div style="width:90%;margin:auto;" data-bind="template: { name: 'person-template', foreach: users }">
+		<div style="width:90%;margin:auto;" data-bind="template: { name: 'person-template', foreach: users() }">
 		</div>
 	</div>
 </div>
 
 <div style="display:none" id="person-template">
 <a class="person" data-bind="attr : { href: $data.url }">
-    <h4><span data-bind="text: $data.firstname"></span> <span data-bind="text: $data.lastname"></span></h4>
+    <h4 style="text-align:center;"><span data-bind="text: $data.firstName"></span> <span data-bind="text: $data.lastName"></span></h4>
 </a>
 </div>
 <script src="JS/KNOCKOUT/home.js" type="text/javascript"></script>

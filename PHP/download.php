@@ -46,9 +46,9 @@
 		}
 	} else if($mode=='skey') {
 		if($submode=='data') {
-			transmitFile($_SERVER['DOCUMENT_ROOT'].'/USERS/'.pathEncode($user).'/'.$_SESSION['login'].'/'.pathEncode($file).'/.data', $file);
+			transmitFile($_SERVER['DOCUMENT_ROOT'].'/USERS/'.pathEncode($user).'/KEYS/'.$_SESSION['login'].'/'.pathEncode($file).'/.data', $file.".key");
 		} else if ($submode=='sign') {
-			transmitFile($_SERVER['DOCUMENT_ROOT'].'/USERS/'.pathEncode($user).'/'.$_SESSION['login'].'/'.pathEncode($file).'/.sign', $file.".sign");
+			transmitFile($_SERVER['DOCUMENT_ROOT'].'/USERS/'.pathEncode($user).'/KEYS/'.$_SESSION['login'].'/'.pathEncode($file).'/.sign', $file.".key.sign");
 		} else {
 			cThrow(ERR_ARGS);
 		}

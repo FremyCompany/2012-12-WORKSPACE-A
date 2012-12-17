@@ -7,80 +7,79 @@ $.ajax({
 	$("#downloadFile").html(html);
 	modelDownload=new DOWNLOADFILES();
 	ko.applyBindings(modelDownload, document.getElementById('downloadFile'));
-});
-var model = new USERPAGE(modelDownload);
-ko.applyBindings(model, document.getElementById('home'));
+	var model = new USERPAGE(modelDownload);
+	ko.applyBindings(model, document.getElementById('home'));
 
-if(user==null){
-	//myPage
-	$.ajax({
-		url : "/TEMPLATE/HTML/revokeAccount.html",
-		cache : false
-	}).done(function(html) {
-		$("#revokeAccount").html(html);
-		var modelRevoke=new REVOKE();
-		ko.applyBindings(modelRevoke, document.getElementById('revokeAccount'));
-	});
-	Secloud.getMyUserInfo(function(ok,rep){
-		if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
-		Secloud.getMyFiles(function(ok,files){
-			if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
-			model.init(rep,true,files);
-		});
-	});
-}
-else{
-	Secloud.getUserInfo(user,function(ok,rep){
-		if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }	
+	if(user==null){
+		//myPage
 		$.ajax({
-			url : "/TEMPLATE/HTML/shareFile.html",
+			url : "/TEMPLATE/HTML/revokeAccount.html",
 			cache : false
 		}).done(function(html) {
-			Secloud.getFilesFor(user,function(ok,myfiles){
-				if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
-				rep.login=user;
-				model.init(rep,false,myfiles);
-			});
+			$("#revokeAccount").html(html);
+			var modelRevoke=new REVOKE();
+			ko.applyBindings(modelRevoke, document.getElementById('revokeAccount'));
+		});
+		Secloud.getMyUserInfo(function(ok,rep){
+			if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
 			Secloud.getMyFiles(function(ok,files){
 				if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
-				$("#myFiles").html(html);
-				$.ajax({
-					url : "/TEMPLATE/HTML/addFile.html",
-					cache : false
-				}).done(function(html) {
-					$("#addFile").html(html);
-					var modelAddFile=new ADDFILE(false);
-					modelAddFile.setTitle("Share a file")
-					ko.applyBindings(modelAddFile, document.getElementById('addFile'));
-					if (typeof FileReader == "undefined") alert ("Sorry your browser does not support the File API and this demo will not work for you");
-					fileSave = new FileSave(
-							[null,
-							 null,
-							 document.getElementById("Key"),
-							 document.getElementById("KeySign")],
-							 modelAddFile,
-							 user
-					);
-					fileSave.init();
-					var modelMyFiles=new FILE_TO_SHARE(files,fileSave);
-					ko.applyBindings(modelMyFiles, document.getElementById('myFiles'));
+				model.init(rep,true,files);
+			});
+		});
+	}
+	else{
+		Secloud.getUserInfo(user,function(ok,rep){
+			if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }	
+			$.ajax({
+				url : "/TEMPLATE/HTML/shareFile.html",
+				cache : false
+			}).done(function(html) {
+				Secloud.getFilesFor(user,function(ok,myfiles){
+					if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
+					rep.login=user;
+					model.init(rep,false,myfiles);
+				});
+				Secloud.getMyFiles(function(ok,files){
+					if(!ok) { Dialogs.showMessage('Une erreur est survenue lors du téléchargement de luser.','Erreur'); throw new Error([].join.call(arguments,"\n")); }
+					$("#myFiles").html(html);
+					$.ajax({
+						url : "/TEMPLATE/HTML/addFile.html",
+						cache : false
+					}).done(function(html) {
+						$("#addFile").html(html);
+						var modelAddFile=new ADDFILE(false);
+						modelAddFile.setTitle("Share a file")
+						ko.applyBindings(modelAddFile, document.getElementById('addFile'));
+						if (typeof FileReader == "undefined") alert ("Sorry your browser does not support the File API and this demo will not work for you");
+						fileSave = new FileSave(
+								[null,
+								 null,
+								 document.getElementById("Key"),
+								 document.getElementById("KeySign")],
+								 modelAddFile,
+								 user
+						);
+						fileSave.init();
+						var modelMyFiles=new FILE_TO_SHARE(files,fileSave);
+						ko.applyBindings(modelMyFiles, document.getElementById('myFiles'));
+					});
 				});
 			});
 		});
-	});
-}
-
+	}
+});
 function USERPAGE(modelDownload) {
 	var self=this;
 	self.modelDownload=modelDownload;
-	
+
 	self.loading=ko.observable(true);
 	self.inputFirstName=ko.observable("");
 	self.inputLastName=ko.observable("");
 	self.inputMail= ko.observable("");
 	self.inputAddress= ko.observable("");
 	self.inputPhone= ko.observable("");
-	
+
 	self.userTitle=ko.observable("");
 	self.titleFiles=ko.observable("");
 	self.myPage=ko.observable(false);
@@ -88,6 +87,7 @@ function USERPAGE(modelDownload) {
 	self.textButton=ko.observable("Modif my profile");
 	self.userInfo="";
 	self.init=function(userInfo,isMe,files){
+		console.log(userInfo);
 		self.userInfo=userInfo;
 		self.files=files;
 		self.inputFirstName(self.userInfo.firstName);
@@ -137,14 +137,14 @@ function USERPAGE(modelDownload) {
 	};
 	self.download=function(data){
 		console.log(data);
+		modelDownload.setFile(data.name,self.userInfo.login);
 		showElem($("#downloadFile"));
-	}
+	};
 	self.saveModif=function(){
-		alert("save modif");
 		var info={
-				"id" : self.userInfo.id,
+				"login" : self.userInfo.login,
 				"firstName" : self.inputFirstName(),
-				"lastLName" : self.inputLastName(),
+				"lastName" : self.inputLastName(),
 				"mail" : self.inputMail(),
 				"address" : self.inputAddress(),
 				"phone" : self.inputPhone(),
