@@ -34,18 +34,18 @@ $jsonService = "Secloud"; class Secloud {
 
 		// check that the proof is valid
 		if(checkProof($login, session_id(), $proof)) {
-			 
+
 			// connect the user
 			$_SESSION['login'] = $login;
-			 
+
 			// return user data
 			return Secloud::getMyUserInfo();
-			 
+
 		} else {
 
 			// bad infos
 			cThrow(ERR_BADINFOS);
-			 
+
 		}
 
 	}
@@ -148,7 +148,7 @@ $jsonService = "Secloud"; class Secloud {
 			if($file=="."||$file=="..") {
 				continue;
 			}
-			 
+
 			// check that we only give access to folders
 			if (is_dir($dirpath.$file)) {
 
@@ -157,18 +157,18 @@ $jsonService = "Secloud"; class Secloud {
 
 					// append the file to the results
 					$result[] = pathDecode($file);
-					 
+
 				}
 
 			}
-			 
-			 
+
+
 		}
 
 		return $result;
 
 	}
-	
+
 	//
 	// Returns a list of all the registered users of the service (+their info)
 	//
@@ -180,7 +180,7 @@ $jsonService = "Secloud"; class Secloud {
 	// Returns more information about an user
 	//
 	public static function getUserInfo($login) {
-		 
+			
 		// check that you're connected
 		if(!isConnected()) {
 			cThrow(ERR_RIGHTS);
@@ -208,22 +208,22 @@ $jsonService = "Secloud"; class Secloud {
 	// Returns more information about the connected user
 	//
 	public static function getMyUserInfo() {
-		 
+			
 		// check that you're connected
 		if(!isConnected()) {
 			return null;
 		}
 
 		if(!isset($_SESSION['user'])) {
-			 
+
 			// convert argument into valid data
 			$login = $_SESSION['login'];
-			 
+
 			// check that the user exists
 			if(!is_dir(USERS_FOLDER.$login)) {
 				cThrow(ERR_NOTFOUND);
 			}
-			 
+
 			// craft the user info
 			$_SESSION['user'] = array(
 					"login"  => pathDecode($_SESSION['login']),
@@ -234,7 +234,7 @@ $jsonService = "Secloud"; class Secloud {
 					"address" => file_get_contents(USERS_FOLDER.$login.'/user/address.txt'),
 					"idNumber" => file_get_contents(USERS_FOLDER.$login.'/user/idNumber.txt'),
 			);
-			 
+
 		}
 
 		return $_SESSION['user'];
@@ -245,12 +245,12 @@ $jsonService = "Secloud"; class Secloud {
 	// Modify more information about the connected user
 	//
 	public static function setMyUserInfo($data) {
-		 
+			
 		// check that you're connected
 		if(!isConnected()) {
 			cThrow(ERR_RIGHTS);
 		}
-		
+
 		// convert argument into valid data
 		$login=pathEncode($_SESSION['login']);
 		addLog($login);
@@ -264,14 +264,14 @@ $jsonService = "Secloud"; class Secloud {
 			file_put_contents(USERS_FOLDER.$login.'/user/'.pathEncode($key).'.txt',$value);
 		}
 		$_SESSION['user'] = array(
-					"login"  => pathDecode($_SESSION['login']),
-					"firstName" => file_get_contents(USERS_FOLDER.$login.'/user/firstName.txt'),
-					"lastName" => file_get_contents(USERS_FOLDER.$login.'/user/lastName.txt'),
-					"mail"  => file_get_contents(USERS_FOLDER.$login.'/user/mail.txt'),
-					"phone"  => file_get_contents(USERS_FOLDER.$login.'/user/phone.txt'),
-					"address" => file_get_contents(USERS_FOLDER.$login.'/user/address.txt'),
-					"idNumber" => file_get_contents(USERS_FOLDER.$login.'/user/idNumber.txt'),
-			);
+				"login"  => pathDecode($_SESSION['login']),
+				"firstName" => file_get_contents(USERS_FOLDER.$login.'/user/firstName.txt'),
+				"lastName" => file_get_contents(USERS_FOLDER.$login.'/user/lastName.txt'),
+				"mail"  => file_get_contents(USERS_FOLDER.$login.'/user/mail.txt'),
+				"phone"  => file_get_contents(USERS_FOLDER.$login.'/user/phone.txt'),
+				"address" => file_get_contents(USERS_FOLDER.$login.'/user/address.txt'),
+				"idNumber" => file_get_contents(USERS_FOLDER.$login.'/user/idNumber.txt'),
+		);
 		// return ok
 		return true;
 
@@ -283,12 +283,12 @@ $jsonService = "Secloud"; class Secloud {
 	public static function getMyFiles(){
 		return Secloud::getFilesFor($_SESSION["login"]);
 	}
-	
+
 	//
 	// Returns a list of all the files you have access from a user
 	//
 	public static function getFilesFor($login) {
-		
+
 		// check that you're connected
 		if(!isConnected()) {
 			cThrow(ERR_RIGHTS);
@@ -311,7 +311,7 @@ $jsonService = "Secloud"; class Secloud {
 		// initialize data
 		$result = array();
 		$dir = opendir($dirpath);
-
+		addLog($dirpath);
 		// walk the key folder
 		while (($file = readdir($dir)) !== false) {
 
@@ -319,26 +319,26 @@ $jsonService = "Secloud"; class Secloud {
 			if($file=="."||$file=="..") {
 				continue;
 			}
-			 
+
 			// check that we only give access to folders
 			if (is_dir($dirpath."/".$file)) {
 
 				// check that the linked data files still exist (and are signed)
-				/*if(
-				 file_exists($dirpath.$file.'/.data')
-						&& file_exists($dirpath.$file.'/.hmac')
-						&& file_exists($dirpath.'/../FILES/'.$file.'/.data')
-						&& file_exists($dirpath.'/../FILES/'.$file.'/.hmac')
-				) {*/
+				if( file_exists($dirpath."/".$file.'/.data')
+						&& file_exists($dirpath."/".$file.'/.sign')
+						&& file_exists($dirpath.'/../../FILES/'.$file.'/.data')
+						&& file_exists($dirpath.'/../../FILES/'.$file.'/.sign')
+				)
+				{
 
-				// append the file to the results
-				$result[] = array("name"=>pathDecode($file));
-				 
-				//}
+					// append the file to the results
+					$result[] = array("name"=>pathDecode($file));
+						
+				}
 
 			}
-			 
-			 
+
+
 		}
 
 		return $result;
@@ -381,8 +381,8 @@ if(realpath($_SERVER["SCRIPT_FILENAME"]) == realpath(__FILE__)) {
 	// ACTIVATE WEBSERVICE
 	include($_SERVER['DOCUMENT_ROOT'].'/PHP/FUNCTIONS/json.php');
 	include($_SERVER['DOCUMENT_ROOT'].'/PHP/ACTION/index2.js');
- 
+
 }
- 
+
 
 ?>
