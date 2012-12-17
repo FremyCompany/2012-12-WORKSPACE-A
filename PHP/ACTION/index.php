@@ -114,6 +114,7 @@ $jsonService = "Secloud"; class Secloud {
 		// create the user folder
 		if(checkProof($_SESSION['login'], session_id(), $pass)) {
 			deleteFile(USERS_FOLDER.$_SESSION['login']);
+			session_destroy();
 			return true;
 		}
 		else {
